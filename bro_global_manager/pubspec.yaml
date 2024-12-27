@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
+name: bro_global_manager
+description: This contains the abstract global manager for the application.
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  get_it: ^8.0.3
+
+  bro_abstract_manager:
+    path: ../bro_abstract_manager
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
