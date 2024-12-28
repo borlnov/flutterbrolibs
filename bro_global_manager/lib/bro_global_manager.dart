@@ -4,5 +4,6 @@
 
 library;
 
-export 'src/abs_global_manager.dart';
+export 'src/mixins/mixin_manager_with_logger.dart';
+export 'src/services/abs_global_manager.dart';
 export 'src/types/global_manager_status.dart';

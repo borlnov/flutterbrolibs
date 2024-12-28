@@ -2,6 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
+import 'dart:async';
+
+import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:bro_abstract_manager/bro_abstract_manager.dart';
 import 'package:bro_global_manager/src/types/global_manager_status.dart';
 import 'package:flutter/widgets.dart';
@@ -10,6 +13,8 @@ import 'package:get_it/get_it.dart';
 /// Get the manager of type [Manager] from the global manager.
 Manager globalGetManager<Manager extends AbsWithLifeCycle>() =>
     AbsGlobalManager.absInstance!._getIt.get<Manager>();
+
+LoggerHelper appLoggerHelper() => AbsGlobalManager.absInstance!.appLoggerHelper;
 
 /// This is an abstract class to build the global manager of the application.
 ///
@@ -44,13 +49,21 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
   /// The current status of the global manager.
   GlobalManagerStatus _currentStatus;
 
+  final Completer<AbstractLoggerManager> _loggerManagerCompleter;
+
   /// Get the current status of the global manager.
   GlobalManagerStatus get currentStatus => _currentStatus;
+
+  AbstractLoggerManager? _initializedLoggerManager;
+
+  LoggerHelper get appLoggerHelper =>
+      _initializedLoggerManager?.loggerHelper ?? DefaultLoggerHelper.instance;
 
   /// Class constructor.
   AbsGlobalManager()
       : _getIt = GetIt.instance,
-        _currentStatus = GlobalManagerStatus.created;
+        _currentStatus = GlobalManagerStatus.created,
+        _loggerManagerCompleter = Completer();
 
   /// Initialize the lifecycle of the global manager.
   ///
@@ -76,10 +89,20 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
     B builder,
   ) =>
       _getIt.registerSingletonAsync<M>(
-        builder.build,
+        () async {
+          final manager = await builder.build();
+          if (!_loggerManagerCompleter.isCompleted && manager is AbstractLoggerManager) {
+            _initializedLoggerManager = manager;
+            _loggerManagerCompleter.complete(manager);
+          }
+
+          return manager;
+        },
         dependsOn: builder.getDependencies(),
         dispose: builder.disposeManager,
       );
+
+  Future<AbstractLoggerManager> waitForLoggerManagerInit() => _loggerManagerCompleter.future;
 
   /// Dispose the global manager and all the linked managers.
   @override

@@ -19,6 +19,9 @@ dependencies:
   bro_abstract_manager:
     path: ../bro_abstract_manager
 
+  bro_abstract_logger:
+    path: ../bro_abstract_logger
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

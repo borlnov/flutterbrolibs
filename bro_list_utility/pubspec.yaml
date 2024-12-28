@@ -1,0 +1,19 @@
+name: bro_list_utility
+description: "A new Flutter package project."
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  bro_abstract_logger:
+    path: ../bro_abstract_logger
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0

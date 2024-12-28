@@ -7,6 +7,8 @@ import 'package:flutter/widgets.dart';
 /// This is an abstract class to use as base for all the services, managers and generic classes
 /// which needs to have a lifecycle.
 abstract class AbsWithLifeCycle {
+  const AbsWithLifeCycle();
+
   /// {@template AbsWithLifeCycle.initLifeCycle}
   /// Called when the application is initializing.
   ///

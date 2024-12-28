@@ -13,9 +13,10 @@ abstract class AbsManagerBuilder<Manager extends AbsWithLifeCycle> {
   final Manager Function() managerFactory;
 
   /// Class constructor.
-  AbsManagerBuilder(this.managerFactory);
+  const AbsManagerBuilder(this.managerFactory);
 
   /// Build the manager and call the [AbsWithLifeCycle.initLifeCycle] method.
+  @mustCallSuper
   Future<Manager> build() async {
     final manager = managerFactory();
     await manager.initLifeCycle();
