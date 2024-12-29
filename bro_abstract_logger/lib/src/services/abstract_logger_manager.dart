@@ -47,7 +47,7 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
     loggerHelper.updateLogger(_externalLogger);
   }
 
-  /// {@template brp_abstract_logger_AbstractLoggerManager_getExternalLogger}
+  /// {@template bro_abstract_logger.AbstractLoggerManager.getExternalLogger}
   /// This method returns the external logger to use with the logger manager.
   /// {@endtemplate}
   @protected
