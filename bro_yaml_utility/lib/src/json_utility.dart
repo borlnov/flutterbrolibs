@@ -1,6 +1,16 @@
+// SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+//
+// SPDX-License-Identifier: MIT
+
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 
+/// A utility class to manipulate JSON.
 abstract final class JsonUtility {
+  /// Merge two JSON maps.
+  ///
+  /// If a key is present in both maps, the value from [toOverrideWith] will be used.
+  ///
+  /// If [logger] is not null, it will be used to log errors.
   static Map<String, dynamic> mergeJson(
     Map<String, dynamic> base,
     Map<String, dynamic> toOverrideWith, {
@@ -34,6 +44,11 @@ abstract final class JsonUtility {
     return mergedJson;
   }
 
+  /// Merge two JSON maps. If both map are null, an empty map will be returned.
+  ///
+  /// If a key is present in both maps, the value from [toOverrideWith] will be used.
+  ///
+  /// If [logger] is not null, it will be used to log errors.
   static Map<String, dynamic> mergeNullableJson(
     Map<String, dynamic>? base,
     Map<String, dynamic>? toOverrideWith, {

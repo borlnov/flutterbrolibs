@@ -7,9 +7,10 @@ import 'package:flutter/widgets.dart';
 /// This is an abstract class to use as base for all the services, managers and generic classes
 /// which needs to have a lifecycle.
 abstract class AbsWithLifeCycle {
+  /// Create an abstract class with a lifecycle.
   const AbsWithLifeCycle();
 
-  /// {@template AbsWithLifeCycle.initLifeCycle}
+  /// {@template bro_abstract_manager.AbsWithLifeCycle.initLifeCycle}
   /// Called when the application is initializing.
   ///
   /// Be careful, the view is not yet built.
@@ -17,7 +18,7 @@ abstract class AbsWithLifeCycle {
   @mustCallSuper
   Future<void> initLifeCycle() async {}
 
-  /// {@template AbsWithLifeCycle.initAfterViewBuilt}
+  /// {@template bro_abstract_manager.AbsWithLifeCycle.initAfterViewBuilt}
   /// Called after the first view is built.
   ///
   /// This is only called once.
@@ -25,7 +26,7 @@ abstract class AbsWithLifeCycle {
   @mustCallSuper
   Future<void> initAfterViewBuilt(BuildContext context) async {}
 
-  /// {@template AbsWithLifeCycle.disposeLifeCycle}
+  /// {@template bro_abstract_manager.AbsWithLifeCycle.disposeLifeCycle}
   /// Called when the application is disposing.
   /// {@endtemplate}
   @mustCallSuper

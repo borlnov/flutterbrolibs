@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+//
+// SPDX-License-Identifier: MIT
+
 import 'dart:io';
 
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
@@ -7,7 +11,19 @@ import 'package:bro_config_manager/src/types/config_environment_type.dart';
 import 'package:bro_config_manager/src/utilities/parse_dot_env_file_utility.dart';
 import 'package:bro_config_manager/src/utilities/parse_env_mapping_file_utility.dart';
 
+/// The utility class to parse the environment configuration.
 abstract final class ParseEnvUtility {
+  /// Parse the environment configuration: the dot env files and the environment mapping file.
+  ///
+  /// [configFolderPath] is the path to the folder containing the config files.
+  ///
+  /// [environmentType] is the current app type environment.
+  ///
+  /// [constEnvsValues] is the constant environment values passed when building the app.
+  ///
+  /// If not null, the [logger] will be used to log the errors.
+  ///
+  /// Returns the parsed environment configuration or null if an error occurred.
   static Future<Map<String, dynamic>?> parseEnvConfig({
     required String configFolderPath,
     required ConfigEnvironmentType environmentType,
@@ -41,6 +57,18 @@ abstract final class ParseEnvUtility {
     );
   }
 
+  /// Use the [envMapFileElements] to parse the environment values and return a list of
+  /// [EnvMapValueElement].
+  ///
+  /// [configFolderPath] is the path to the folder containing the config files.
+  ///
+  /// [environmentType] is the current app type environment.
+  ///
+  /// [constEnvsValues] is the constant environment values passed when building the app.
+  ///
+  /// If not null, the [logger] will be used to log the errors.
+  ///
+  /// Returns the parsed elements or null if an error occurred.
   static Future<List<EnvMapValueElement>?> _parseMapEnv({
     required String configFolderPath,
     required ConfigEnvironmentType environmentType,
@@ -83,6 +111,22 @@ abstract final class ParseEnvUtility {
     return envValues;
   }
 
+  /// Get all the environment values from the dot env files and the platform environment.
+  ///
+  /// [configFolderPath] is the path to the folder containing the config files.
+  ///
+  /// [environmentType] is the current app type environment.
+  ///
+  /// [constEnvsValues] is the constant environment values passed when building the app.
+  ///
+  /// If not null, the [logger] will be used to log the errors.
+  ///
+  /// Returns the environment values or null if an error occurred.
+  ///
+  /// The values are merged in the following order:
+  /// - The platform environment values
+  /// - The dot env files values
+  /// - The constant values
   static Future<Map<String, String>?> _getEnvValues({
     required String configFolderPath,
     required ConfigEnvironmentType environmentType,

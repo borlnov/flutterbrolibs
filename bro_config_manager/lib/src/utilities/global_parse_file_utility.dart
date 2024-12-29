@@ -1,10 +1,22 @@
+// SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+//
+// SPDX-License-Identifier: MIT
+
 import 'dart:io';
 
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:bro_config_manager/src/data/config_files_constants.dart' as config_files_constants;
-import 'package:bro_json_utility/bro_json_utility.dart';
+import 'package:bro_yaml_utility/bro_yaml_utility.dart';
 
+/// Utility class to parse a YAML file content
 abstract final class GlobalParseFileUtility {
+  /// Parse a YAML config file content.
+  ///
+  /// [configFolderPath] is the path to the folder containing the config file.
+  ///
+  /// [fileName] is the name of the file to parse (it contains the file extension).
+  ///
+  /// If not null, the [logger] will be used to log the errors.
   static ({bool success, Map<String, dynamic>? value}) parseConfigFile({
     required String configFolderPath,
     required String fileName,
@@ -38,12 +50,19 @@ abstract final class GlobalParseFileUtility {
     return (success: true, value: json);
   }
 
+  /// Read the content of a file.
+  ///
+  /// [configFolderPath] is the path to the folder containing the config file.
+  ///
+  /// [fileName] is the name of the file to parse (it contains the file extension).
+  ///
+  /// If not null, the [logger] will be used to log the errors.
   static ({bool success, String? content}) _readFileContent({
     required String configFolderPath,
     required String fileName,
     required LoggerHelper? logger,
   }) {
-    for (final extension in config_files_constants.configYamlSuffixes) {
+    for (final extension in config_files_constants.configYamlExtensions) {
       final file = File('$configFolderPath/$fileName$extension');
       if (!file.existsSync()) {
         continue;

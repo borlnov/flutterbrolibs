@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
 SPDX-License-Identifier: MIT
 -->
 
-# Bro list utility <!-- omit from toc -->
+# Bro yaml utility <!-- omit from toc -->
 
 ## Table of contents
 
@@ -13,4 +13,4 @@ SPDX-License-Identifier: MIT
 
 ## Introduction
 
-This package contains utility functions to work with lists.
+This package contains utility functions to work with yaml and json files.

@@ -1,7 +1,22 @@
+// SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+//
+// SPDX-License-Identifier: MIT
+
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:yaml/yaml.dart';
 
+/// Utility class to load a yaml document and convert it to a json object.
+///
+/// This uses the `yaml` package.
 abstract final class YamlUtility {
+  /// Load a yaml document from a [content] and convert it to a json object or json array.
+  ///
+  /// If the [T] type is not a `Map<String, dynamic>` or a `List<dynamic>`, the method will return
+  /// null. The primary type of the json document must match the [T] type.
+  ///
+  /// If [logger] is not null, the method will log the errors.
+  ///
+  /// Returns null if the conversion failed.
   static T? loadYamlDocToJson<T>({
     required String content,
     LoggerHelper? logger,
@@ -21,14 +36,14 @@ abstract final class YamlUtility {
 
     final contents = yamlDoc.contents;
     if (T is Map<String, dynamic> && contents is YamlMap) {
-      return _convertMapToJson(
+      return _convertMapDocToJson(
         map: contents,
         logger: logger,
       ) as T;
     }
 
     if (T is List<dynamic> && contents is YamlList) {
-      return _convertListToJson(
+      return _convertListDocToJson(
         list: contents,
         logger: logger,
       ) as T;
@@ -38,7 +53,8 @@ abstract final class YamlUtility {
     return null;
   }
 
-  static Map<String, dynamic> _convertMapToJson({
+  /// Convert the [YamlMap] value of a [YamlDocument] to a json object.
+  static Map<String, dynamic> _convertMapDocToJson({
     required YamlMap map,
     required LoggerHelper? logger,
   }) =>
@@ -47,7 +63,8 @@ abstract final class YamlUtility {
         logger: logger,
       ) as Map<String, dynamic>;
 
-  static List<dynamic> _convertListToJson({
+  /// Convert the [YamlList] value of a [YamlDocument] to a json array.
+  static List<dynamic> _convertListDocToJson({
     required YamlList list,
     required LoggerHelper? logger,
   }) =>
@@ -56,6 +73,7 @@ abstract final class YamlUtility {
         logger: logger,
       ) as List<dynamic>;
 
+  /// Convert a [YamlNode] to the right json element.
   static dynamic _convertNodeToJsonValue({
     required YamlNode node,
     required LoggerHelper? logger,
@@ -75,6 +93,7 @@ abstract final class YamlUtility {
     throw UnsupportedError('Yaml parsing: unsupported node type: ${node.runtimeType}');
   }
 
+  /// Convert a [YamlMap] to a json object
   static dynamic _convertYamlMapToJsonValue({
     required YamlMap map,
     required LoggerHelper? logger,
@@ -90,6 +109,7 @@ abstract final class YamlUtility {
     return map;
   }
 
+  /// Convert a [YamlList] to a json array.
   static dynamic _convertYamlListToJsonValue({
     required YamlList list,
     required LoggerHelper? logger,
@@ -105,6 +125,7 @@ abstract final class YamlUtility {
     return tmpList;
   }
 
+  /// Convert a [YamlScalar] to a json value.
   static dynamic _convertYamlScalarToJsonValue({
     required YamlScalar scalar,
     required LoggerHelper? logger,

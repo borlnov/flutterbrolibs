@@ -1,10 +1,20 @@
+// SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+//
+// SPDX-License-Identifier: MIT
+
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:bro_config_manager/src/data/config_files_constants.dart' as config_files_constants;
 import 'package:bro_config_manager/src/models/env_map_file_element.dart';
 import 'package:bro_config_manager/src/models/env_map_value_element.dart';
 import 'package:bro_config_manager/src/utilities/global_parse_file_utility.dart';
 
+/// Utility class to parse the env mapping file.
 abstract final class ParseEnvMappingFileUtility {
+  /// Transform the [envValues] to a JSON object which can be used as config file.
+  ///
+  /// If not null, the [logger] will be used to log the errors.
+  ///
+  /// Returns the JSON object or null if an error occurred.
   static Map<String, dynamic>? transformEnvMapValuesToJson({
     required List<EnvMapValueElement> envValues,
     LoggerHelper? logger,
@@ -36,6 +46,13 @@ abstract final class ParseEnvMappingFileUtility {
     return json;
   }
 
+  /// Parse the mapping file and return the parsed elements.
+  ///
+  /// [configFolderPath] is the path to the folder containing the config files.
+  ///
+  /// If not null, the [logger] will be used to log the errors.
+  ///
+  /// Returns the parsed elements or null if an error occurred.
   static List<EnvMapFileElement>? parseMappingFile({
     required String configFolderPath,
     LoggerHelper? logger,
@@ -61,6 +78,15 @@ abstract final class ParseEnvMappingFileUtility {
     );
   }
 
+  /// Parse the elements of the mapping file. This is a recursive function.
+  ///
+  /// [envMapFile] is the mapping file to parse.
+  ///
+  /// [currentJsonPath] is the current path in the JSON file.
+  ///
+  /// If not null, the [logger] will be used to log the errors.
+  ///
+  /// Returns the parsed elements or null if an error occurred.
   static List<EnvMapFileElement>? _parseElements({
     required Map<String, dynamic> envMapFile,
     required List<String> currentJsonPath,

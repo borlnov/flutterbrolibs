@@ -14,6 +14,7 @@ import 'package:get_it/get_it.dart';
 Manager globalGetManager<Manager extends AbsWithLifeCycle>() =>
     AbsGlobalManager.absInstance!._getIt.get<Manager>();
 
+/// Get the main logger helper from the global manager.
 LoggerHelper appLoggerHelper() => AbsGlobalManager.absInstance!.appLoggerHelper;
 
 /// This is an abstract class to build the global manager of the application.
@@ -23,7 +24,8 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
   /// The singleton instance of the global manager.
   static AbsGlobalManager? _instance;
 
-  /// Get the singleton instance of the global manager. This returns a [AbsGlobalManager] type and not the subclass.
+  /// Get the singleton instance of the global manager. This returns a [AbsGlobalManager] type and
+  /// not the subclass.
   /// This is only used with other bro packages.
   ///
   /// The instance must be created before using this getter.
@@ -49,21 +51,19 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
   /// The current status of the global manager.
   GlobalManagerStatus _currentStatus;
 
-  final Completer<AbstractLoggerManager> _loggerManagerCompleter;
-
   /// Get the current status of the global manager.
   GlobalManagerStatus get currentStatus => _currentStatus;
 
-  AbstractLoggerManager? _initializedLoggerManager;
+  /// The main logger manager of the application.
+  late final AbstractLoggerManager _loggerManager;
 
-  LoggerHelper get appLoggerHelper =>
-      _initializedLoggerManager?.loggerHelper ?? DefaultLoggerHelper.instance;
+  /// Get the main logger helper of the application.
+  LoggerHelper get appLoggerHelper => _loggerManager.loggerHelper;
 
   /// Class constructor.
   AbsGlobalManager()
       : _getIt = GetIt.instance,
-        _currentStatus = GlobalManagerStatus.created,
-        _loggerManagerCompleter = Completer();
+        _currentStatus = GlobalManagerStatus.created;
 
   /// Initialize the lifecycle of the global manager.
   ///
@@ -84,25 +84,33 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
     _currentStatus = GlobalManagerStatus.ready;
   }
 
+  /// Register a logger manager with a builder.
+  ///
+  /// This method has to be called in the [initLifeCycle] method of the subclass before calling
+  /// [registerManagerWithBuilder].
+  @protected
+  void registerLoggerManager<L extends AbstractLoggerManager, B extends AbsLoggerBuilder<L>>(
+    B builder,
+  ) {
+    final loggerManager = builder.managerFactory();
+    _loggerManager = loggerManager;
+    _getIt.registerSingletonAsync<L>(
+      () async => builder.build(managerToInit: loggerManager),
+      dependsOn: builder.getDependencies(),
+      dispose: builder.disposeManager,
+    );
+  }
+
   /// Register a manager with a builder.
+  @protected
   void registerManagerWithBuilder<M extends AbsWithLifeCycle, B extends AbsManagerBuilder<M>>(
     B builder,
   ) =>
       _getIt.registerSingletonAsync<M>(
-        () async {
-          final manager = await builder.build();
-          if (!_loggerManagerCompleter.isCompleted && manager is AbstractLoggerManager) {
-            _initializedLoggerManager = manager;
-            _loggerManagerCompleter.complete(manager);
-          }
-
-          return manager;
-        },
+        builder.build,
         dependsOn: builder.getDependencies(),
         dispose: builder.disposeManager,
       );
-
-  Future<AbstractLoggerManager> waitForLoggerManagerInit() => _loggerManagerCompleter.future;
 
   /// Dispose the global manager and all the linked managers.
   @override

@@ -1,39 +1,31 @@
 <!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
+SPDX-License-Identifier: MIT
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# Bro abstract logger <!-- omit from toc -->
 
-## Features
+## Table of contents
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- [Table of contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Usage](#usage)
 
-## Getting started
+## Introduction
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+This package contains abstract classes for all the loggers. It doesn't contain any implementation of
+the loggers. It's just a way to have a common interface for all the loggers.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+This package is not meant to be used directly. It's meant to be used by other packages that need to
+implement a logger.
 
-```dart
-const like = 'sample';
-```
+If you want to implement a logger, you should create a new package that depends on this package and
+implements the abstract classes.
 
-## Additional information
+If you want to log to multiple loggers at the time, you can use the `AbstractMultiLogger` class.
+This class will log to all the loggers that you add to it and allows you to only have one main
+logger manager in your app.
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.

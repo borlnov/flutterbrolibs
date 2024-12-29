@@ -1,12 +1,29 @@
-import 'dart:io';
+// SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+//
+// SPDX-License-Identifier: MIT
 
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:bro_config_manager/src/data/config_files_constants.dart' as config_files_constants;
 import 'package:bro_config_manager/src/types/config_environment_type.dart';
 import 'package:bro_config_manager/src/utilities/global_parse_file_utility.dart';
-import 'package:bro_json_utility/bro_json_utility.dart';
+import 'package:bro_yaml_utility/bro_yaml_utility.dart';
 
+/// Utility class to parse the config files.
 abstract final class ParseConfigFileUtility {
+  /// Parse all the config files and merge them together.
+  ///
+  /// [configFolderPath] is the path to the folder containing the config files.
+  ///
+  /// [environmentType] is the current app type environment.
+  ///
+  /// If not null, the [logger] will be used to log the errors.
+  ///
+  /// Returns the merged config values or null if an error occurred.
+  ///
+  /// The config files are parsed in the following order:
+  /// - default.yaml
+  /// - [environmentType].yaml
+  /// - local.yaml
   static Map<String, dynamic>? parseConfigFiles({
     required String configFolderPath,
     required ConfigEnvironmentType environmentType,
@@ -20,7 +37,7 @@ abstract final class ParseConfigFileUtility {
 
     final envConfig = GlobalParseFileUtility.parseConfigFile(
       configFolderPath: configFolderPath,
-      fileName: environmentType.fileName,
+      fileName: environmentType.fileBaseName,
       logger: logger,
     );
 
