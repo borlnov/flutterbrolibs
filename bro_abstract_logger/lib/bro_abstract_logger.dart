@@ -10,4 +10,5 @@ export 'src/helpers/void_print_logger.dart';
 export 'src/mixins/mixin_external_logger.dart';
 export 'src/services/abstract_logger_manager.dart';
 export 'src/services/abstract_multi_logger_manager.dart';
+export 'src/services/void_logger_manager.dart';
 export 'src/types/logs_level.dart';

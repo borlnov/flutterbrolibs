@@ -51,13 +51,13 @@ abstract final class ParseConfigFileUtility {
       return null;
     }
 
-    final tmpEnvConfig = JsonUtility.mergeNullableJson(
+    final tmpEnvConfig = JsonUtility.mergeJson(
       defaultConfig.value,
       envConfig.value,
       logger: logger,
     );
 
-    return JsonUtility.mergeNullableJson(
+    return JsonUtility.mergeJson(
       tmpEnvConfig,
       localConfig.value,
       logger: logger,

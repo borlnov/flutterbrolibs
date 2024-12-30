@@ -64,9 +64,9 @@ abstract class AbstractMultiLoggerManager extends AbstractLoggerManager {
   final List<AbstractLoggerManager> _loggersManager;
 
   /// Class constructor.
-  AbstractMultiLoggerManager({
-    required List<AbstractLoggerManager> loggersManager,
-  })  : _loggersManager = loggersManager,
+  AbstractMultiLoggerManager(
+    List<AbstractLoggerManager> loggersManager,
+  )   : _loggersManager = loggersManager,
         super.fromLoggerHelper(
           loggerHelper: MultiLoggerHelper(
             loggers: loggersManager.map((manager) => manager.loggerHelper).toList(),
@@ -75,11 +75,18 @@ abstract class AbstractMultiLoggerManager extends AbstractLoggerManager {
 
   /// {@macro bro_abstract_manager.AbsWithLifeCycle.initLifeCycle}
   @override
+  // We don't call the super method because we don't want to update the logger helper.
+  // ignore: must_call_super
   Future<void> initLifeCycle() async {
     await Future.wait(_loggersManager.map((manager) => manager.initLifeCycle()));
-
-    return super.initLifeCycle();
   }
+
+  /// {@macro bro_abstract_logger.AbstractLoggerManager.getExternalLogger}
+  ///
+  /// This method is not called in the [initLifeCycle] method because the [loggerHelper] depends on
+  /// all the linked logger managers and not an external logger.
+  @override
+  Future<MixinExternalLogger> getExternalLogger() => throw UnimplementedError();
 
   /// {@macro bro_abstract_manager.AbsWithLifeCycle.initAfterViewBuilt}
   @override

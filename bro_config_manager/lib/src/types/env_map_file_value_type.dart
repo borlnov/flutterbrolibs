@@ -55,11 +55,11 @@ enum EnvMapFileValueType {
         EnvMapFileValueType.doubleEnv => double.tryParse(value),
         EnvMapFileValueType.boolEnv => BoolUtility.tryParse(value),
         EnvMapFileValueType.stringEnv => value,
-        EnvMapFileValueType.objectEnv => YamlUtility.loadYamlDocToJson<Map<String, dynamic>>(
+        EnvMapFileValueType.objectEnv => YamlUtility.loadYamlDocToJsonObj(
             content: value,
             logger: logger,
           ),
-        EnvMapFileValueType.listEnv => YamlUtility.loadYamlDocToJson<List<dynamic>>(
+        EnvMapFileValueType.listEnv => YamlUtility.loadYamlDocToJsonArray(
             content: value,
             logger: logger,
           ),

@@ -9,48 +9,73 @@ import 'package:yaml/yaml.dart';
 ///
 /// This uses the `yaml` package.
 abstract final class YamlUtility {
-  /// Load a yaml document from a [content] and convert it to a json object or json array.
-  ///
-  /// If the [T] type is not a `Map<String, dynamic>` or a `List<dynamic>`, the method will return
-  /// null. The primary type of the json document must match the [T] type.
+  /// Load a yaml document from a [content] and convert it to a json object.
   ///
   /// If [logger] is not null, the method will log the errors.
   ///
   /// Returns null if the conversion failed.
-  static T? loadYamlDocToJson<T>({
+  static Map<String, dynamic>? loadYamlDocToJsonObj({
     required String content,
     LoggerHelper? logger,
   }) {
-    if (T is! Map<String, dynamic> && T is! List<dynamic>) {
-      logger?.error('Yaml parsing: unsupported type: ${T.runtimeType}');
-      return null;
-    }
-
-    YamlDocument yamlDoc;
-    try {
-      yamlDoc = loadYamlDocument(content);
-    } catch (e) {
-      logger?.error("Yaml parsing: error while loading yaml document: $e");
+    final yamlDoc = _loadYamlDoc(content: content, logger: logger);
+    if (yamlDoc == null) {
       return null;
     }
 
     final contents = yamlDoc.contents;
-    if (T is Map<String, dynamic> && contents is YamlMap) {
-      return _convertMapDocToJson(
-        map: contents,
-        logger: logger,
-      ) as T;
+    if (contents is! YamlMap) {
+      logger?.error('Yaml parsing: the yaml document is not a map');
+      return null;
     }
 
-    if (T is List<dynamic> && contents is YamlList) {
-      return _convertListDocToJson(
-        list: contents,
-        logger: logger,
-      ) as T;
+    return _convertMapDocToJson(
+      map: contents,
+      logger: logger,
+    );
+  }
+
+  /// Load a yaml document from a [content] and convert it to a json array.
+  ///
+  /// If [logger] is not null, the method will log the errors.
+  ///
+  /// Returns null if the conversion failed.
+  static List<dynamic>? loadYamlDocToJsonArray({
+    required String content,
+    LoggerHelper? logger,
+  }) {
+    final yamlDoc = _loadYamlDoc(content: content, logger: logger);
+    if (yamlDoc == null) {
+      return null;
     }
 
-    logger?.error("Yaml parsing: type mismatch: ${contents.runtimeType} vs ${T.runtimeType}");
-    return null;
+    final contents = yamlDoc.contents;
+    if (contents is! YamlList) {
+      logger?.error('Yaml parsing: the yaml document is not an array');
+      return null;
+    }
+
+    return _convertListDocToJson(
+      list: contents,
+      logger: logger,
+    );
+  }
+
+  /// Load a yaml document from a [content].
+  ///
+  /// Returns null if the conversion failed.
+  static YamlDocument? _loadYamlDoc({
+    required String content,
+    LoggerHelper? logger,
+  }) {
+    YamlDocument? yamlDoc;
+    try {
+      yamlDoc = loadYamlDocument(content);
+    } catch (e) {
+      logger?.error("Yaml parsing: error while loading yaml document: $e");
+    }
+
+    return yamlDoc;
   }
 
   /// Convert the [YamlMap] value of a [YamlDocument] to a json object.
@@ -98,15 +123,21 @@ abstract final class YamlUtility {
     required YamlMap map,
     required LoggerHelper? logger,
   }) {
-    final map = <String, dynamic>{};
+    final tmpMap = <String, dynamic>{};
     for (final entry in map.entries) {
-      map[entry.key] = _convertNodeToJsonValue(
-        node: entry.value as YamlNode,
+      final key = entry.key;
+      if (key is! String) {
+        logger?.warn('Yaml parsing: unsupported map key type: ${key.runtimeType}');
+        continue;
+      }
+
+      tmpMap[key] = _convertYamlValueToJsonValue(
+        value: entry.value,
         logger: logger,
       );
     }
 
-    return map;
+    return tmpMap;
   }
 
   /// Convert a [YamlList] to a json array.
@@ -129,13 +160,33 @@ abstract final class YamlUtility {
   static dynamic _convertYamlScalarToJsonValue({
     required YamlScalar scalar,
     required LoggerHelper? logger,
+  }) =>
+      _convertYamlValueToJsonValue(
+        value: scalar.value,
+        logger: logger,
+      );
+
+  /// Convert a yaml dynamic [value] to a json value.
+  ///
+  /// If the value is a [YamlNode], it will call [_convertNodeToJsonValue].
+  static dynamic _convertYamlValueToJsonValue({
+    // We use dynamic here to be able to convert any type of yaml value
+    // ignore: avoid_annotating_with_dynamic
+    required dynamic value,
+    required LoggerHelper? logger,
   }) {
-    final value = scalar.value;
+    if (value is YamlNode) {
+      return _convertNodeToJsonValue(
+        node: value,
+        logger: logger,
+      );
+    }
+
     if (value is String || value is num || value is bool) {
       return value;
     }
 
-    logger?.error('Yaml parsing: unsupported scalar type: ${value.runtimeType}');
+    logger?.error('Yaml parsing: unsupported yaml value type: ${value.runtimeType}');
     return null;
   }
 }

@@ -11,7 +11,7 @@ import 'package:flutter/foundation.dart';
 /// This is an abstract builder for logger managers.
 abstract class AbsLoggerBuilder<L extends AbstractLoggerManager> extends AbsManagerBuilder<L> {
   /// Class constructor.
-  AbsLoggerBuilder(super.managerFactory);
+  const AbsLoggerBuilder(super.managerFactory);
 }
 
 /// This is the abstract class for logger managers.

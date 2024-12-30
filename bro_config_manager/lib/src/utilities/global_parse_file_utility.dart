@@ -37,7 +37,7 @@ abstract final class GlobalParseFileUtility {
       return (success: true, value: null);
     }
 
-    final json = YamlUtility.loadYamlDocToJson<Map<String, dynamic>>(
+    final json = YamlUtility.loadYamlDocToJsonObj(
       content: result.content!,
       logger: logger,
     );

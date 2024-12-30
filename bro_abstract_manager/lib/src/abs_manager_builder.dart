@@ -34,7 +34,4 @@ abstract class AbsManagerBuilder<Manager extends AbsWithLifeCycle> {
   /// {@endtemplate}
   @mustCallSuper
   Iterable<Type> getDependencies();
-
-  /// Dispose the [manager] and call the [AbsWithLifeCycle.disposeLifeCycle] method.
-  Future<void> disposeManager(Manager manager) => manager.disposeLifeCycle();
 }

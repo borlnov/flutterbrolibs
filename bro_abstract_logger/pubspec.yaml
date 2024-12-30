@@ -21,4 +21,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  equatable: ^2.0.7
+
   flutter_lints: ^5.0.0

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-import 'package:bro_types_utility/src/errors/boolean_parse_exception.dart';
+import 'package:bro_types_utility/src/errors/boolean_parse_error.dart';
 
 /// Utility class for boolean.
 abstract final class BoolUtility {
@@ -16,11 +16,12 @@ abstract final class BoolUtility {
   ///
   /// Return null if the value is not a boolean.
   static bool? tryParse(String value) {
-    if (trueValues.contains(value)) {
+    final lowerValue = value.toLowerCase();
+    if (trueValues.contains(lowerValue)) {
       return true;
     }
 
-    if (falseValues.contains(value)) {
+    if (falseValues.contains(lowerValue)) {
       return false;
     }
 

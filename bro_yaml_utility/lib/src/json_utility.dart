@@ -8,14 +8,28 @@ import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 abstract final class JsonUtility {
   /// Merge two JSON maps.
   ///
+  /// If both map are null, an empty map will be returned.
+  ///
   /// If a key is present in both maps, the value from [toOverrideWith] will be used.
   ///
   /// If [logger] is not null, it will be used to log errors.
   static Map<String, dynamic> mergeJson(
-    Map<String, dynamic> base,
-    Map<String, dynamic> toOverrideWith, {
+    Map<String, dynamic>? base,
+    Map<String, dynamic>? toOverrideWith, {
     LoggerHelper? logger,
   }) {
+    if (base == null && toOverrideWith == null) {
+      return {};
+    }
+
+    if (base == null) {
+      return Map<String, dynamic>.from(toOverrideWith!);
+    }
+
+    if (toOverrideWith == null) {
+      return Map<String, dynamic>.from(base);
+    }
+
     final mergedJson = Map<String, dynamic>.from(base);
     for (final entry in toOverrideWith.entries) {
       final key = entry.key;
@@ -42,30 +56,5 @@ abstract final class JsonUtility {
     }
 
     return mergedJson;
-  }
-
-  /// Merge two JSON maps. If both map are null, an empty map will be returned.
-  ///
-  /// If a key is present in both maps, the value from [toOverrideWith] will be used.
-  ///
-  /// If [logger] is not null, it will be used to log errors.
-  static Map<String, dynamic> mergeNullableJson(
-    Map<String, dynamic>? base,
-    Map<String, dynamic>? toOverrideWith, {
-    LoggerHelper? logger,
-  }) {
-    if (base == null) {
-      return toOverrideWith ?? {};
-    }
-
-    if (toOverrideWith == null) {
-      return base;
-    }
-
-    return mergeJson(
-      base,
-      toOverrideWith,
-      logger: logger,
-    );
   }
 }
