@@ -4,18 +4,20 @@ SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
 SPDX-License-Identifier: MIT
 -->
 
-<!-- We disable the HTML rule to manage the adding of githubs badges -->
-<!-- markdownlint-disable MD041 MD033 -->
-<a href="https://github.com/borlnov/flutterbrolibs/actions">
-<img src="https://github.com/borlnov/flutterbrolibs/workflows/flutter_unit_tests/badge.svg"
-alt="Build Status">
-</a>
-<!-- markdownlint-enable MD041 MD033 -->
-
 # Flutter Bro libraries <!-- omit from toc -->
+
+## Badges
+
+[![Flutter Unit Tests]
+(https://github.com/borlnov/flutterbrolibs/actions/workflows/flutter_unit_tests.yml/badge.svg)]
+(https://github.com/borlnov/flutterbrolibs/actions/workflows/flutter_unit_tests.yml)
+[![Markdown Lint](https://github.com/borlnov/flutterbrolibs/actions/workflows/markdown_lint.yml/badge.svg)]
+(https://github.com/borlnov/flutterbrolibs/actions/workflows/markdown_lint.yml)
+[![REUSE Compliance Check](https://github.com/borlnov/flutterbrolibs/actions/workflows/reuse_compliance.yml/badge.svg)](https://github.com/borlnov/flutterbrolibs/actions/workflows/reuse_compliance.yml)
 
 ## Table of contents
 
+- [Badges](#badges)
 - [Table of contents](#table-of-contents)
 - [Introduction](#introduction)
 
