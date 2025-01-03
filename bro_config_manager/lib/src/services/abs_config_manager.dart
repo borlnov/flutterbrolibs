@@ -65,7 +65,9 @@ abstract class AbstractConfigManager extends AbsWithLifeCycle with MixinManagerW
     );
   }
 
+  /// {@template bro_config_manager.AbstractConfigManager.getInitConfigManagerModel}
   /// This method returns the model to initialize the ConfigManager.
+  /// {@endtemplate}
   @protected
   Future<InitConfigManagerModel> getInitConfigManagerModel();
 }

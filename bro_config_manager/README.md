@@ -114,7 +114,7 @@ syntax:
 ```yaml
 key:
     __name: ENV_VAR_NAME
-    __type: int
+    __format: int
 ```
 
 Here is an example of a mapping file:
@@ -135,7 +135,7 @@ logger:
         # If true, this will enable the console logger
         enabled:
             __name: LOGGER_CONSOLE_ENABLED
-            __type: bool
+            __format: bool
 
     # This contains the settings for the file logger
     file:
@@ -146,7 +146,7 @@ logger:
         # If true, this will enable the file logger
         enabled:
             __name: LOGGER_FILE_ENABLED
-            __type: bool
+            __format: bool
 ```
 
 The supported types are:

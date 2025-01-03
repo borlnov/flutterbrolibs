@@ -10,16 +10,17 @@ import 'package:bro_config_manager/src/utilities/global_parse_file_utility.dart'
 
 /// Utility class to parse the env mapping file.
 abstract final class ParseEnvMappingFileUtility {
-  /// Transform the [envValues] to a JSON object which can be used as config file.
+  /// Merge the environment mapping values with the config values.
   ///
   /// If not null, the [logger] will be used to log the errors.
   ///
   /// Returns the JSON object or null if an error occurred.
-  static Map<String, dynamic>? transformEnvMapValuesToJson({
+  static Map<String, dynamic>? mergeWithEnvMapValues({
     required List<EnvMapValueElement> envValues,
+    required Map<String, dynamic> configValues,
     LoggerHelper? logger,
   }) {
-    final json = <String, dynamic>{};
+    final json = Map<String, dynamic>.from(configValues);
     var tmpJson = json;
     for (final envValue in envValues) {
       final jsonPath = envValue.jsonPath;
@@ -28,15 +29,18 @@ abstract final class ParseEnvMappingFileUtility {
         if (idx == jsonPath.length - 1) {
           tmpJson[key] = envValue.value;
         } else {
-          final tmpValue = tmpJson[key] ?? <String, dynamic>{};
+          var tmpValue = tmpJson[key];
 
-          if (tmpValue is! Map<String, dynamic>) {
+          if (tmpValue == null) {
+            tmpJson[key] = <String, dynamic>{};
+            tmpValue = tmpJson[key];
+          } else if (tmpValue is! Map<String, dynamic>) {
             logger?.warn("Env map parsing: failed to parse the element: $envValue, the json path "
                 "is not valid, the key: $key is used for a value and a map");
             return null;
           }
 
-          tmpJson = tmpValue;
+          tmpJson = tmpValue as Map<String, dynamic>;
         }
       }
 
@@ -53,11 +57,11 @@ abstract final class ParseEnvMappingFileUtility {
   /// If not null, the [logger] will be used to log the errors.
   ///
   /// Returns the parsed elements or null if an error occurred.
-  static List<EnvMapFileElement>? parseMappingFile({
+  static Future<List<EnvMapFileElement>?> parseMappingFile({
     required String configFolderPath,
     LoggerHelper? logger,
-  }) {
-    final envMapFile = GlobalParseFileUtility.parseConfigFile(
+  }) async {
+    final envMapFile = await GlobalParseFileUtility.parseConfigFile(
       configFolderPath: configFolderPath,
       fileName: config_files_constants.envMapFileName,
       logger: logger,
@@ -121,7 +125,7 @@ abstract final class ParseEnvMappingFileUtility {
       if (value is String) {
         final parsedElement = EnvMapFileElement.fromStringType(
           envKey: value,
-          currentJsonPath: currentJsonPath,
+          currentJsonPath: newJsonPath,
         );
 
         if (parsedElement == null) {

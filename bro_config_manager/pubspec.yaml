@@ -24,6 +24,9 @@ dependencies:
   bro_abstract_manager:
     path: ../bro_abstract_manager
 
+  bro_file_utility:
+    path: ../bro_file_utility
+
   bro_global_manager:
     path: ../bro_global_manager
 
@@ -41,3 +44,15 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - path: test/assets/config_a/
+      flavors:
+        - test
+    - path: test/assets/config_b/
+      flavors:
+        - test
+    - path: test/assets/config_c/
+      flavors:
+        - test

@@ -7,7 +7,6 @@ import 'package:bro_config_manager/src/data/config_files_constants.dart' as conf
 import 'package:bro_config_manager/src/types/config_environment_type.dart';
 import 'package:bro_config_manager/src/utilities/parse_config_file_utility.dart';
 import 'package:bro_config_manager/src/utilities/parse_env_utility.dart';
-import 'package:bro_yaml_utility/bro_yaml_utility.dart';
 
 /// Utility class to parse all the config files, dot files and environment values and merge them
 /// together.
@@ -39,7 +38,7 @@ abstract final class ParseAllConfigsUtility {
     required Map<String, String> constEnvsValues,
     LoggerHelper? logger,
   }) async {
-    final configValues = ParseConfigFileUtility.parseConfigFiles(
+    final configValues = await ParseConfigFileUtility.parseConfigFiles(
       configFolderPath: configFolderPath,
       environmentType: environmentType,
       logger: logger,
@@ -49,18 +48,15 @@ abstract final class ParseAllConfigsUtility {
       return null;
     }
 
-    final envConfigValues = await ParseEnvUtility.parseEnvConfig(
+    final mergedConfigValues = await ParseEnvUtility.mergeWithEnvConfig(
       configFolderPath: configFolderPath,
       environmentType: environmentType,
       constEnvsValues: constEnvsValues,
+      configValues: configValues,
       logger: logger,
     );
 
-    if (envConfigValues == null) {
-      return null;
-    }
-
-    return JsonUtility.mergeJson(configValues, envConfigValues);
+    return mergedConfigValues;
   }
 
   /// Guess the environment type from the environment variables passed when building the app.

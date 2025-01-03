@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:bro_config_manager/src/types/config_environment_type.dart';
 import 'package:equatable/equatable.dart';
 

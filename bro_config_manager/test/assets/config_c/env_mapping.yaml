@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
+test:
+  another:
+    __name: TEST_ANOTHER
+    __format: int
+
+# Comment
+testAgain:
+  subLevel:
+    key: TEST_AGAIN_SUB_LEVEL
+  key2:
+    __name: TEST_AGAIN_KEY2
+    __format: bool
+  complex:
+    __name: TEST_AGAIN_COMPLEX
+    __format: object
+  strArray:
+    __name: TEST_AGAIN_STR_ARRAY
+    __format: array
+  boolArray:
+    __name: TEST_AGAIN_BOOL_ARRAY
+    __format: array
+  intArray:
+    __name: TEST_AGAIN_INT_ARRAY
+    __format: array
+  complexArray:
+    __name: TEST_AGAIN_COMPLEX_ARRAY
+    __format: array

@@ -13,7 +13,8 @@ import 'package:bro_config_manager/src/utilities/parse_env_mapping_file_utility.
 
 /// The utility class to parse the environment configuration.
 abstract final class ParseEnvUtility {
-  /// Parse the environment configuration: the dot env files and the environment mapping file.
+  /// Parse the environment configuration: the dot env files and the environment mapping file and
+  /// merge them with the config values ([configValues])
   ///
   /// [configFolderPath] is the path to the folder containing the config files.
   ///
@@ -24,13 +25,14 @@ abstract final class ParseEnvUtility {
   /// If not null, the [logger] will be used to log the errors.
   ///
   /// Returns the parsed environment configuration or null if an error occurred.
-  static Future<Map<String, dynamic>?> parseEnvConfig({
+  static Future<Map<String, dynamic>?> mergeWithEnvConfig({
     required String configFolderPath,
     required ConfigEnvironmentType environmentType,
     required Map<String, String> constEnvsValues,
+    required Map<String, dynamic> configValues,
     LoggerHelper? logger,
   }) async {
-    final envMapFileElements = ParseEnvMappingFileUtility.parseMappingFile(
+    final envMapFileElements = await ParseEnvMappingFileUtility.parseMappingFile(
       configFolderPath: configFolderPath,
       logger: logger,
     );
@@ -51,8 +53,9 @@ abstract final class ParseEnvUtility {
       return null;
     }
 
-    return ParseEnvMappingFileUtility.transformEnvMapValuesToJson(
+    return ParseEnvMappingFileUtility.mergeWithEnvMapValues(
       envValues: envMapValues,
+      configValues: configValues,
       logger: logger,
     );
   }

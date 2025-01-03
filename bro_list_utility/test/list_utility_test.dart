@@ -1,6 +1,11 @@
+// SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+//
+// SPDX-License-Identifier: MIT
+
 import 'package:bro_list_utility/bro_list_utility.dart';
 import 'package:test/test.dart';
 
+/// This tests the list utility methods.
 void main() {
   group("Try to cast from dynamic array", () {
     const dynamicIntArray = <dynamic>[

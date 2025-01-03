@@ -4,8 +4,8 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'struct/services/a_manager_builder.dart';
-import 'struct/types/manager_status.dart';
+import 'mock/services/a_manager_builder.dart';
+import 'mock/types/manager_status.dart';
 
 /// Test the abstract manager builder.
 void main() {

@@ -3,10 +3,9 @@
 // SPDX-License-Identifier: MIT
 
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
-import 'package:bro_abstract_manager/bro_abstract_manager.dart';
 
 /// This class is used to build a [VoidLoggerManager].
-class VoidLoggerBuilder extends AbsManagerBuilder<VoidLoggerManager> {
+class VoidLoggerBuilder extends AbsLoggerBuilder<VoidLoggerManager> {
   /// Class constructor.
   const VoidLoggerBuilder() : super(VoidLoggerManager.new);
 

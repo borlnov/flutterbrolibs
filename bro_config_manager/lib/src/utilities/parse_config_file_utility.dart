@@ -24,24 +24,24 @@ abstract final class ParseConfigFileUtility {
   /// - default.yaml
   /// - [environmentType].yaml
   /// - local.yaml
-  static Map<String, dynamic>? parseConfigFiles({
+  static Future<Map<String, dynamic>?> parseConfigFiles({
     required String configFolderPath,
     required ConfigEnvironmentType environmentType,
     LoggerHelper? logger,
-  }) {
-    final defaultConfig = GlobalParseFileUtility.parseConfigFile(
+  }) async {
+    final defaultConfig = await GlobalParseFileUtility.parseConfigFile(
       configFolderPath: configFolderPath,
       fileName: config_files_constants.defaultConfigFileName,
       logger: logger,
     );
 
-    final envConfig = GlobalParseFileUtility.parseConfigFile(
+    final envConfig = await GlobalParseFileUtility.parseConfigFile(
       configFolderPath: configFolderPath,
       fileName: environmentType.fileBaseName,
       logger: logger,
     );
 
-    final localConfig = GlobalParseFileUtility.parseConfigFile(
+    final localConfig = await GlobalParseFileUtility.parseConfigFile(
       configFolderPath: configFolderPath,
       fileName: config_files_constants.localConfigFileName,
       logger: logger,

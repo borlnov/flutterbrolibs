@@ -39,6 +39,11 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
     return _instance! as T;
   }
 
+  /// Reset the singleton instance of the class.
+  static void resetSingleton() {
+    _instance = null;
+  }
+
   /// The list of all the managers of the global manager.
   final Map<Type, AbsWithLifeCycle> _managers;
 
@@ -63,6 +68,11 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
   @override
   Future<void> initLifeCycle() async {
     await super.initLifeCycle();
+
+    if (_currentStatus != GlobalManagerStatus.created) {
+      _loggerManager.loggerHelper.warn("The global manager is already initialized.");
+      return;
+    }
 
     final builders = _RegistrationBuilders();
     registerManagers(<M extends AbsWithLifeCycle, B extends AbsManagerBuilder<M>>(B builder) =>
@@ -168,6 +178,8 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
     final tmpBuilders = _RegistrationBuilders.from(buildersToRegister);
     final toRemoveBuilders = <AbsManagerBuilder>[];
 
+    final managersTypes = _managers.keys;
+    final registeringPromises = <Future<void>>[];
     for (final entry in tmpBuilders.entries) {
       final builder = entry.key;
       final register = entry.value;
@@ -175,7 +187,7 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
       final dependencies = builder.getDependencies();
       var canRegister = true;
       for (final dependency in dependencies) {
-        if (!_managers.keys.any((value) => value == dependency)) {
+        if (!managersTypes.any((value) => value == dependency)) {
           // The dependency is not registered, we stop here
           canRegister = false;
           break;
@@ -187,8 +199,10 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
       }
 
       toRemoveBuilders.add(builder);
-      await register();
+      registeringPromises.add(register());
     }
+
+    await Future.wait(registeringPromises);
 
     toRemoveBuilders.forEach(tmpBuilders.remove);
 

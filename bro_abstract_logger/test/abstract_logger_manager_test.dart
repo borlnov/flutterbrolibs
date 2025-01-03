@@ -5,9 +5,9 @@
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'struct/helpers/test_print_logger.dart';
-import 'struct/models/test_log_model.dart';
-import 'struct/services/a_logger_manager.dart';
+import 'mock/helpers/test_print_logger.dart';
+import 'mock/models/test_log_model.dart';
+import 'mock/services/a_logger_manager.dart';
 
 /// Test the [AbstractLoggerManager] behaviours.
 void main() {

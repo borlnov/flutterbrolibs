@@ -33,6 +33,11 @@ class ConfigCompanion {
     );
   }
 
+  /// Reset the singleton instance of the class.
+  static void resetSingleton() {
+    _instance = null;
+  }
+
   /// This is the config [_json]
   final Map<String, dynamic> _json;
 

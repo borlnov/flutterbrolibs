@@ -5,13 +5,13 @@
 import 'package:bro_global_manager/bro_global_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'struct/models/fake_build_context.dart';
-import 'struct/services/a_global_manager.dart';
-import 'struct/services/a_manager.dart';
-import 'struct/services/b_global_manager.dart';
-import 'struct/services/b_manager.dart';
-import 'struct/services/c_logger_manager.dart';
-import 'struct/types/manager_status.dart';
+import 'mock/models/fake_build_context.dart';
+import 'mock/services/a_global_manager.dart';
+import 'mock/services/a_manager.dart';
+import 'mock/services/b_global_manager.dart';
+import 'mock/services/b_manager.dart';
+import 'mock/services/c_logger_manager.dart';
+import 'mock/types/manager_status.dart';
 
 /// Test the global manager.
 void main() {

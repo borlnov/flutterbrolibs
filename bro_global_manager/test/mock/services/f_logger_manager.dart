@@ -6,16 +6,16 @@ import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 
 import '../helpers/test_print_logger.dart';
 import '../mixins/mixin_life_cycle_status.dart';
-import 'b_manager.dart';
+import 'g_manager.dart';
 
-/// This is the builder to create the [CLoggerManager].
+/// This is the builder to create the [FLoggerManager].
 class FLoggerBuilder extends AbsLoggerBuilder<FLoggerManager> {
   /// Create the [FLoggerBuilder].
   const FLoggerBuilder() : super(FLoggerManager.new);
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override
-  Iterable<Type> getDependencies() => [BManager];
+  Iterable<Type> getDependencies() => [GManager];
 }
 
 /// This is the manager used to test the logging system.
