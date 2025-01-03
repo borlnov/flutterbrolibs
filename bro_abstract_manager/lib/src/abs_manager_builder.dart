@@ -13,21 +13,25 @@ abstract class AbsManagerBuilder<Manager extends AbsWithLifeCycle> {
   final Manager Function() managerFactory;
 
   /// Class constructor.
-  AbsManagerBuilder(this.managerFactory);
+  const AbsManagerBuilder(this.managerFactory);
 
+  /// {@template bro_abstract_manager.AbsManagerBuilder.build}
   /// Build the manager and call the [AbsWithLifeCycle.initLifeCycle] method.
-  Future<Manager> build() async {
-    final manager = managerFactory();
+  /// {@endtemplate}
+  @mustCallSuper
+  Future<Manager> build({
+    Manager? managerToInit,
+  }) async {
+    final manager = managerToInit ?? managerFactory();
     await manager.initLifeCycle();
     return manager;
   }
 
+  /// {@template bro_abstract_manager.AbsManagerBuilder.getDependencies}
   /// Get the dependencies of the manager.
   ///
   /// [Type] is the type of the dependencies and must be a subclass of [AbsWithLifeCycle].
+  /// {@endtemplate}
   @mustCallSuper
   Iterable<Type> getDependencies();
-
-  /// Dispose the [manager] and call the [AbsWithLifeCycle.disposeLifeCycle] method.
-  Future<void> disposeManager(Manager manager) => manager.disposeLifeCycle();
 }

@@ -7,9 +7,8 @@ enum GlobalManagerStatus {
   /// The global manager is created.
   created,
 
-  /// The global manager and its managers are initialized. The initialization after the first view
-  /// has begun.
-  initializingAfterFirstViewBuilt,
+  /// The global manager and its managers are initialized.
+  initialized,
 
   /// The global manager and its managers are completly ready, the initialization after the first
   /// view built is done.

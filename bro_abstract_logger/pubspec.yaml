@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
+name: bro_abstract_logger
+description: This package contains abstract classes for the loggers.
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  bro_abstract_manager:
+    path: ../bro_abstract_manager
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  equatable: ^2.0.7
+
+  flutter_lints: ^5.0.0
