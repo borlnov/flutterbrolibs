@@ -8,11 +8,8 @@ SPDX-License-Identifier: MIT
 
 ## Badges
 
-[![Flutter Unit Tests]
-(https://github.com/borlnov/flutterbrolibs/actions/workflows/flutter_unit_tests.yml/badge.svg)]
-(https://github.com/borlnov/flutterbrolibs/actions/workflows/flutter_unit_tests.yml)
-[![Markdown Lint](https://github.com/borlnov/flutterbrolibs/actions/workflows/markdown_lint.yml/badge.svg)]
-(https://github.com/borlnov/flutterbrolibs/actions/workflows/markdown_lint.yml)
+[![Flutter Unit Tests](https://github.com/borlnov/flutterbrolibs/actions/workflows/flutter_unit_tests.yml/badge.svg)](https://github.com/borlnov/flutterbrolibs/actions/workflows/flutter_unit_tests.yml)
+[![Markdown Lint](https://github.com/borlnov/flutterbrolibs/actions/workflows/markdown_lint.yml/badge.svg)](https://github.com/borlnov/flutterbrolibs/actions/workflows/markdown_lint.yml)
 [![REUSE Compliance Check](https://github.com/borlnov/flutterbrolibs/actions/workflows/reuse_compliance.yml/badge.svg)](https://github.com/borlnov/flutterbrolibs/actions/workflows/reuse_compliance.yml)
 
 ## Table of contents
