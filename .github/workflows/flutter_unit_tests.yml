@@ -17,4 +17,4 @@ jobs:
         uses: subosito/flutter-action@v1
       - run: for i in $(git ls-files --recurse-submodules "*/pubspec.yaml"); do
           (cd "${i%pubspec.yaml}" && if [ -d "test" ]; then flutter test -r github --flavor test;
-          then); done
+          fi); done
