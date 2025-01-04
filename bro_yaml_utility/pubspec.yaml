@@ -5,8 +5,8 @@
 name: bro_yaml_utility
 version: "1.0.0"
 
-description: This package contains utility classes for JSON and YAML.
-repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_yaml_utility
+description: This package contains utility classes for managing JSON and YAML objects.
+repository: https://github.com/borlnov/flutterbrolibs
 topics:
   - yaml
   - json
