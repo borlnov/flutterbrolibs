@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import 'package:bro_list_utility/bro_list_utility.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 /// This tests the list utility methods.
 void main() {
