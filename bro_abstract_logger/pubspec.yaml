@@ -5,8 +5,8 @@
 name: bro_abstract_logger
 version: "1.0.0"
 
-description: This package contains abstract classes for the loggers.
-repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_abstract_logger
+description: This package contains abstract classes to loggers with managers.
+repository: https://github.com/borlnov/flutterbrolibs
 topics:
   - logger
   - abstract

@@ -5,8 +5,8 @@
 name: bro_config_manager
 version: "1.0.0"
 
-description: This package contains the configuration manager.
-repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_config_manager
+description: This package contains the configuration manager for your application.
+repository: https://github.com/borlnov/flutterbrolibs
 topics:
   - manager
   - configuration

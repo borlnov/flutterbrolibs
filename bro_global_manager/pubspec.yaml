@@ -6,7 +6,7 @@ name: bro_global_manager
 version: "1.0.0"
 
 description: This contains the abstract global manager for the application.
-repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_global_manager
+repository: https://github.com/borlnov/flutterbrolibs
 topics:
   - manager
   - global

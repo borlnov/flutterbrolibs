@@ -14,3 +14,13 @@ SPDX-License-Identifier: MIT
 ## Introduction
 
 This contains abstract classes for all the managers.
+
+Managers are singletons that manage a specific part of the application. They are used to separate
+the logic from the UI and to have a single point of access to the data.
+
+Managers are used to manage the data, the configuration, the services, the network, etc.
+
+Each manager is an unique instance that is accessible from anywhere in the application.
+
+The abstract classes are used to define the interface of the manager. The concrete classes must
+implement the abstract classes.

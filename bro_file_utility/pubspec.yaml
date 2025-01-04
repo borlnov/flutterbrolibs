@@ -5,8 +5,8 @@
 name: bro_file_utility
 version: "1.0.0"
 
-description: This contains utility functions for file manipulation.
-repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_file_utility
+description: This contains utility functions for manipulating files and assets.
+repository: https://github.com/borlnov/flutterbrolibs
 topics:
   - file
   - assets

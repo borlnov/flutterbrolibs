@@ -5,9 +5,10 @@
 name: bro_list_utility
 version: "1.0.0"
 
-description: This package contains utility classes for lists.
-repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_list_utility
+description: This package contains utility classes for managing lists and maps.
+repository: https://github.com/borlnov/flutterbrolibs
 topics:
+  - map
   - list
   - utility
   - brolibs
