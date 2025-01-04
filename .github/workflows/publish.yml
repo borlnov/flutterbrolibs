@@ -25,5 +25,3 @@ jobs:
       # Protected github deployment environment, requires approval to publish.
       environment: pub.dev
       use-flutter: true
-    secrets:
-      credentialJson: ${{ secrets.CREDENTIAL_JSON }}
