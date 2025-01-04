@@ -22,7 +22,6 @@ jobs:
       id-token: write # Required for authentication using OIDC
       pull-requests: write # Required for writing the pull request note
     with:
-      credentialJson: ${{ secrets.CREDENTIAL_JSON }}
       # Protected github deployment environment, requires approval to publish.
       environment: pub.dev
       use-flutter: true
