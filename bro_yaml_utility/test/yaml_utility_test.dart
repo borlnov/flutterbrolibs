@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import 'package:bro_yaml_utility/bro_yaml_utility.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 /// Test the yaml utility class.
 void main() {

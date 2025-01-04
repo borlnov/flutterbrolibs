@@ -22,3 +22,4 @@ workspace:
 dev_dependencies:
   mono_repo: ^6.6.2
   flutter_lints: ^5.0.0
+  pana: ^0.22.17

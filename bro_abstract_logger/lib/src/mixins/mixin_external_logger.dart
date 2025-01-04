@@ -86,12 +86,11 @@ mixin MixinExternalLogger {
 
   /// {@template bro_abstract_logger.MixinExternalLogger.log}
   /// This method logs a [message] with the provided [level].
-  ///
+  /// {@endtemplate}
   /// {@template bro_abstract_logger.MixinExternalLogger.categories}
   /// The [categories] parameter is used to add categories to the log message. It can be used to
   /// filter logs by categories or to add more context to the logs. The first category is the main
   /// category of the logger and the last one is the most specific.
-  /// {@endtemplate}
   /// {@endtemplate}
   void log(
     LogsLevel level,
