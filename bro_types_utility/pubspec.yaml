@@ -3,11 +3,20 @@
 # SPDX-License-Identifier: MIT
 
 name: bro_types_utility
+version: "1.0.0"
+
 description: This package contains utility classes for types.
-publish_to: none
+repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_types_utility
+topics:
+  - types
+  - utility
+  - brolibs
+  - shared
 
 environment:
   sdk: ^3.6.0
+
+resolution: workspace
 
 dev_dependencies:
   lints: ^5.0.0

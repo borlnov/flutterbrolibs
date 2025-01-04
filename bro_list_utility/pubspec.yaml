@@ -3,15 +3,23 @@
 # SPDX-License-Identifier: MIT
 
 name: bro_list_utility
+version: "1.0.0"
+
 description: This package contains utility classes for lists.
-publish_to: none
+repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_list_utility
+topics:
+  - list
+  - utility
+  - brolibs
+  - shared
 
 environment:
   sdk: ^3.6.0
 
+resolution: workspace
+
 dependencies:
-  bro_abstract_logger:
-    path: ../bro_abstract_logger
+  bro_abstract_logger: ^1.0.0
 
 dev_dependencies:
   lints: ^5.0.0

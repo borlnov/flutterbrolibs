@@ -3,12 +3,21 @@
 # SPDX-License-Identifier: MIT
 
 name: bro_config_manager
+version: "1.0.0"
+
 description: This package contains the configuration manager.
-publish_to: none
+repository: https://github.com/borlnov/flutterbrolibs/tree/main/bro_config_manager
+topics:
+  - manager
+  - configuration
+  - brolibs
+  - shared
 
 environment:
   sdk: ^3.6.0
   flutter: ">=1.17.0"
+
+resolution: workspace
 
 dependencies:
   flutter:
@@ -18,26 +27,19 @@ dependencies:
 
   flutter_dotenv: ^5.2.1
 
-  bro_abstract_logger:
-    path: ../bro_abstract_logger
+  bro_abstract_logger: ^1.0.0
 
-  bro_abstract_manager:
-    path: ../bro_abstract_manager
+  bro_abstract_manager: ^1.0.0
 
-  bro_file_utility:
-    path: ../bro_file_utility
+  bro_file_utility: ^1.0.0
 
-  bro_global_manager:
-    path: ../bro_global_manager
+  bro_global_manager: ^1.0.0
 
-  bro_yaml_utility:
-    path: ../bro_yaml_utility
+  bro_yaml_utility: ^1.0.0
 
-  bro_list_utility:
-    path: ../bro_list_utility
+  bro_list_utility: ^1.0.0
 
-  bro_types_utility:
-    path: ../bro_types_utility
+  bro_types_utility: ^1.0.0
 
 dev_dependencies:
   flutter_test:
