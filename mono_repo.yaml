@@ -5,3 +5,9 @@
 # See https://github.com/google/mono_repo.dart for details on this file
 github:
   cron: "0 0 * * 0"
+
+merge_stages:
+  - analyze
+  - unit_test
+
+self_validate: analyze
