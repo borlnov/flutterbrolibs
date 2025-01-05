@@ -89,7 +89,12 @@ void main() {
       level: LogsLevel.error,
     );
 
+    // We needed for test purpose
+    // ignore: invalid_use_of_protected_member
     final testPrintALogger = managerA.loggerHelper.logger as TestPrintLogger;
+
+    // We needed for test purpose
+    // ignore: invalid_use_of_protected_member
     final testPrintBLogger = managerB.loggerHelper.logger as TestPrintLogger;
 
     multiManager.loggerHelper.log(log1.level, log1.message);

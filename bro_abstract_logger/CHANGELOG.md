@@ -7,7 +7,11 @@ SPDX-License-Identifier: MIT
 <!-- We disable the rule for having the top level at first line, because we prefer a second level
      header for version -->
 <!-- markdownlint-disable MD041 -->
-## 1.0.0
+## 1.0.1
 <!-- markdownlint-enable MD041 -->
+
+- Fix the info and warning analyses issues.
+
+## 1.0.0
 
 - Initial release.

@@ -66,6 +66,8 @@ void main() {
     manager.loggerHelper.log(log1.level, log1.message);
     manager.loggerHelper.log(log2.level, log2.message);
 
+    // We needed for test purpose
+    // ignore: invalid_use_of_protected_member
     final testPrintLogger = manager.loggerHelper.logger as TestPrintLogger;
 
     expect(testPrintLogger.logs.length, 2, reason: 'Test if the logs have been added');

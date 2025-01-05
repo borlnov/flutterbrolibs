@@ -30,6 +30,8 @@ class MultiLoggerHelper extends LoggerHelper {
   /// {@macro bro_abstract_logger.LoggerHelper.logErrorWithException}
   @override
   void logErrorWithException(
+    // We use dynamic here to be able to log any type of exception
+    // ignore: avoid_annotating_with_dynamic
     dynamic exception, {
     bool isFatal = false,
     StackTrace? stackTrace,
