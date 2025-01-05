@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 name: bro_abstract_logger
-version: "1.0.0"
+version: "1.0.1"
 
 description: This package contains abstract classes to loggers with managers.
 repository: https://github.com/borlnov/flutterbrolibs

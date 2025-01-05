@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import 'package:bro_types_utility/bro_types_utility.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 /// Test the bool utility class.
 void main() {

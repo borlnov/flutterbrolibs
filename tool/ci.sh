@@ -63,21 +63,13 @@ for PKG in ${PKGS}; do
       echo
       echo -e "\033[1mPKG: ${PKG}; TASK: ${TASK}\033[22m"
       case ${TASK} in
-      analyze_0)
-        echo 'flutter analyze'
-        flutter analyze || EXIT_CODE=$?
+      analyze)
+        echo 'flutter analyze --fatal-infos .'
+        flutter analyze --fatal-infos . || EXIT_CODE=$?
         ;;
-      analyze_1)
-        echo 'dart analyze'
-        dart analyze || EXIT_CODE=$?
-        ;;
-      test_0)
-        echo 'flutter test --flavor test'
-        flutter test --flavor test || EXIT_CODE=$?
-        ;;
-      test_1)
-        echo 'dart test --flavor test'
-        dart test --flavor test || EXIT_CODE=$?
+      test)
+        echo 'flutter test --flavor test .'
+        flutter test --flavor test . || EXIT_CODE=$?
         ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"

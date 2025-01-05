@@ -29,6 +29,8 @@ class VoidPrintLogger with MixinExternalLogger {
   /// {@macro bro_abstract_logger.MixinExternalLogger.logErrorWithException}
   @override
   void logErrorWithException(
+    // We use dynamic here to be able to log any type of exception
+    // ignore: avoid_annotating_with_dynamic
     dynamic exception, {
     StackTrace? stackTrace,
     bool isFatal = false,

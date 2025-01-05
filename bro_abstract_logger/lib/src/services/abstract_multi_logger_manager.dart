@@ -93,7 +93,12 @@ abstract class AbstractMultiLoggerManager extends AbstractLoggerManager {
   Future<void> initAfterViewBuilt(BuildContext context) async {
     await Future.wait(_loggersManager.map((manager) => manager.initAfterViewBuilt(context)));
 
-    return super.initAfterViewBuilt(context);
+    if (!context.mounted) {
+      loggerHelper.error("We can't init the multi logger manager after the view is built if the "
+          "context is not mounted.");
+      return;
+    }
+    await super.initAfterViewBuilt(context);
   }
 
   /// {@macro bro_abstract_manager.AbsWithLifeCycle.disposeLifeCycle}

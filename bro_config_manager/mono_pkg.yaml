@@ -7,6 +7,6 @@ sdk:
 
 stages:
   - analyze:
-      - analyze
+      - analyze: --fatal-infos .
   - unit_test:
-      - test: --flavor test
+      - test: --flavor test .
