@@ -11,6 +11,7 @@ stages:
           - analyze: --fatal-infos .
           - command:
               - dart pub global activate pana
-              - pana --exit-code-threshold 20 --line-length 100 .
+              - pana --exit-code-threshold 20 --line-length 100 --flutter-sdk
+                ${{ steps.flutter-action.outputs.CACHE-PATH }} .
   - unit_test:
       - test: --flavor test .
