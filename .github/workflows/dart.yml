@@ -17,16 +17,16 @@ permissions: read-all
 
 jobs:
   job_001:
-    name: "analyze; PKG: bro_abstract_logger; `flutter analyze --fatal-infos .`"
+    name: "analyze; PKGS: bro_abstract_logger, bro_abstract_manager, bro_config_manager, bro_file_utility, bro_global_manager, bro_list_utility, bro_types_utility, bro_yaml_utility; `flutter analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger;commands:analyze"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility;commands:analyze"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -46,27 +46,6 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_abstract_logger_pub_upgrade.conclusion == 'success'"
         working-directory: bro_abstract_logger
-  job_002:
-    name: "analyze; PKG: bro_abstract_manager; `flutter analyze --fatal-infos .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_manager;commands:analyze"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_manager
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_abstract_manager_pub_upgrade
         name: bro_abstract_manager; flutter pub upgrade
         run: flutter pub upgrade
@@ -76,27 +55,6 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_abstract_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_abstract_manager
-  job_003:
-    name: "analyze; PKG: bro_config_manager; `flutter analyze --fatal-infos .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_config_manager;commands:analyze"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_config_manager
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_config_manager_pub_upgrade
         name: bro_config_manager; flutter pub upgrade
         run: flutter pub upgrade
@@ -106,27 +64,6 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_config_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_config_manager
-  job_004:
-    name: "analyze; PKG: bro_file_utility; `flutter analyze --fatal-infos .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_file_utility;commands:analyze"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_file_utility
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_file_utility_pub_upgrade
         name: bro_file_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -136,27 +73,6 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_file_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_file_utility
-  job_005:
-    name: "analyze; PKG: bro_global_manager; `flutter analyze --fatal-infos .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_global_manager;commands:analyze"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_global_manager
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_global_manager_pub_upgrade
         name: bro_global_manager; flutter pub upgrade
         run: flutter pub upgrade
@@ -166,27 +82,6 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_global_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_global_manager
-  job_006:
-    name: "analyze; PKG: bro_list_utility; `flutter analyze --fatal-infos .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_list_utility;commands:analyze"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_list_utility
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_list_utility_pub_upgrade
         name: bro_list_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -196,27 +91,6 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_list_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_list_utility
-  job_007:
-    name: "analyze; PKG: bro_types_utility; `flutter analyze --fatal-infos .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_types_utility;commands:analyze"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_types_utility
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_types_utility_pub_upgrade
         name: bro_types_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -226,17 +100,26 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_types_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_types_utility
-  job_008:
-    name: "analyze; PKG: bro_yaml_utility; `flutter analyze --fatal-infos .`"
+      - id: bro_yaml_utility_pub_upgrade
+        name: bro_yaml_utility; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: bro_yaml_utility
+      - name: "bro_yaml_utility; flutter analyze --fatal-infos ."
+        run: flutter analyze --fatal-infos .
+        if: "always() && steps.bro_yaml_utility_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_yaml_utility
+  job_002:
+    name: "score; PKGS: bro_abstract_logger, bro_abstract_manager, bro_config_manager, bro_file_utility, bro_global_manager, bro_list_utility, bro_types_utility, bro_yaml_utility; `dart pub global activate pana && pana --exit-threshold 20 --line-length 100 .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_yaml_utility;commands:analyze"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility;commands:command"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_yaml_utility
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -247,26 +130,91 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - id: bro_abstract_logger_pub_upgrade
+        name: bro_abstract_logger; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: bro_abstract_logger
+      - name: "bro_abstract_logger; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_abstract_logger_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_abstract_logger
+      - id: bro_abstract_manager_pub_upgrade
+        name: bro_abstract_manager; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: bro_abstract_manager
+      - name: "bro_abstract_manager; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_abstract_manager_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_abstract_manager
+      - id: bro_config_manager_pub_upgrade
+        name: bro_config_manager; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: bro_config_manager
+      - name: "bro_config_manager; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_config_manager_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_config_manager
+      - id: bro_file_utility_pub_upgrade
+        name: bro_file_utility; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: bro_file_utility
+      - name: "bro_file_utility; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_file_utility_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_file_utility
+      - id: bro_global_manager_pub_upgrade
+        name: bro_global_manager; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: bro_global_manager
+      - name: "bro_global_manager; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_global_manager_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_global_manager
+      - id: bro_list_utility_pub_upgrade
+        name: bro_list_utility; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: bro_list_utility
+      - name: "bro_list_utility; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_list_utility_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_list_utility
+      - id: bro_types_utility_pub_upgrade
+        name: bro_types_utility; flutter pub upgrade
+        run: flutter pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: bro_types_utility
+      - name: "bro_types_utility; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_types_utility_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_types_utility
       - id: bro_yaml_utility_pub_upgrade
         name: bro_yaml_utility; flutter pub upgrade
         run: flutter pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: bro_yaml_utility
-      - name: "bro_yaml_utility; flutter analyze --fatal-infos ."
-        run: flutter analyze --fatal-infos .
+      - name: "bro_yaml_utility; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
         if: "always() && steps.bro_yaml_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_yaml_utility
-  job_009:
-    name: "unit_test; PKG: bro_abstract_logger; `flutter test --flavor test .`"
+    needs:
+      - job_001
+  job_003:
+    name: "unit_test; PKGS: bro_abstract_logger, bro_abstract_manager, bro_config_manager, bro_file_utility, bro_global_manager, bro_list_utility, bro_types_utility, bro_yaml_utility; `flutter test --flavor test .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger;commands:test"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility;commands:test"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -286,36 +234,6 @@ jobs:
         run: flutter test --flavor test .
         if: "always() && steps.bro_abstract_logger_pub_upgrade.conclusion == 'success'"
         working-directory: bro_abstract_logger
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-      - job_008
-  job_010:
-    name: "unit_test; PKG: bro_abstract_manager; `flutter test --flavor test .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_manager;commands:test"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_manager
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_abstract_manager_pub_upgrade
         name: bro_abstract_manager; flutter pub upgrade
         run: flutter pub upgrade
@@ -325,36 +243,6 @@ jobs:
         run: flutter test --flavor test .
         if: "always() && steps.bro_abstract_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_abstract_manager
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-      - job_008
-  job_011:
-    name: "unit_test; PKG: bro_config_manager; `flutter test --flavor test .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_config_manager;commands:test"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_config_manager
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_config_manager_pub_upgrade
         name: bro_config_manager; flutter pub upgrade
         run: flutter pub upgrade
@@ -364,36 +252,6 @@ jobs:
         run: flutter test --flavor test .
         if: "always() && steps.bro_config_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_config_manager
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-      - job_008
-  job_012:
-    name: "unit_test; PKG: bro_file_utility; `flutter test --flavor test .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_file_utility;commands:test"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_file_utility
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_file_utility_pub_upgrade
         name: bro_file_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -403,36 +261,6 @@ jobs:
         run: flutter test --flavor test .
         if: "always() && steps.bro_file_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_file_utility
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-      - job_008
-  job_013:
-    name: "unit_test; PKG: bro_global_manager; `flutter test --flavor test .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_global_manager;commands:test"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_global_manager
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_global_manager_pub_upgrade
         name: bro_global_manager; flutter pub upgrade
         run: flutter pub upgrade
@@ -442,36 +270,6 @@ jobs:
         run: flutter test --flavor test .
         if: "always() && steps.bro_global_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_global_manager
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-      - job_008
-  job_014:
-    name: "unit_test; PKG: bro_list_utility; `flutter test --flavor test .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_list_utility;commands:test"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_list_utility
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_list_utility_pub_upgrade
         name: bro_list_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -481,36 +279,6 @@ jobs:
         run: flutter test --flavor test .
         if: "always() && steps.bro_list_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_list_utility
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-      - job_008
-  job_015:
-    name: "unit_test; PKG: bro_types_utility; `flutter test --flavor test .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_types_utility;commands:test"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_types_utility
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_types_utility_pub_upgrade
         name: bro_types_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -520,36 +288,6 @@ jobs:
         run: flutter test --flavor test .
         if: "always() && steps.bro_types_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_types_utility
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-      - job_008
-  job_016:
-    name: "unit_test; PKG: bro_yaml_utility; `flutter test --flavor test .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_yaml_utility;commands:test"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_yaml_utility
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - id: bro_yaml_utility_pub_upgrade
         name: bro_yaml_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -562,9 +300,3 @@ jobs:
     needs:
       - job_001
       - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-      - job_008

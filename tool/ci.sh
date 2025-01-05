@@ -67,6 +67,10 @@ for PKG in ${PKGS}; do
         echo 'flutter analyze --fatal-infos .'
         flutter analyze --fatal-infos . || EXIT_CODE=$?
         ;;
+      command)
+        echo 'dart pub global activate pana && pana --exit-threshold 20 --line-length 100 .'
+        dart pub global activate pana && pana --exit-threshold 20 --line-length 100 . || EXIT_CODE=$?
+        ;;
       test)
         echo 'flutter test --flavor test .'
         flutter test --flavor test . || EXIT_CODE=$?

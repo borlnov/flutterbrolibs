@@ -8,5 +8,9 @@ sdk:
 stages:
   - analyze:
       - analyze: --fatal-infos .
+  - score:
+      - command:
+          - dart pub global activate pana
+          - pana --exit-threshold 20 --line-length 100 .
   - unit_test:
       - test: --flavor test .
