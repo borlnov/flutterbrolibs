@@ -9,9 +9,10 @@ on:
   pull_request:
     branches: [ main ]
     types: [opened, synchronize, reopened, labeled, unlabeled]
-  push:
-    tags:
-      - '[A-z]+-v[0-9]+.[0-9]+.[0-9]+*'
+  # We disable the push for now, because it's not working with flutter (it asks for a connection)
+  # push:
+  #   tags:
+  #     - '[A-z]+-v[0-9]+.[0-9]+.[0-9]+*'
 
 # Publish using the reusable workflow from dart-lang.
 jobs:
