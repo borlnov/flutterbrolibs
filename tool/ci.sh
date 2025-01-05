@@ -67,11 +67,7 @@ for PKG in ${PKGS}; do
         echo 'flutter analyze --fatal-infos .'
         flutter analyze --fatal-infos . || EXIT_CODE=$?
         ;;
-      command_0)
-        echo 'dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 --flutter-sdk ${{ steps.flutter-action.outputs.CACHE-PATH }} .'
-        dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 --flutter-sdk ${{ steps.flutter-action.outputs.CACHE-PATH }} . || EXIT_CODE=$?
-        ;;
-      command_1)
+      command)
         echo 'dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 .'
         dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 . || EXIT_CODE=$?
         ;;
