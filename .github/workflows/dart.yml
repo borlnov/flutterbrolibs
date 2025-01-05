@@ -17,14 +17,37 @@ permissions: read-all
 
 jobs:
   job_001:
-    name: "analyze; PKGS: bro_abstract_logger, bro_abstract_manager, bro_config_manager, bro_file_utility, bro_global_manager, bro_list_utility, bro_types_utility, bro_yaml_utility; `flutter analyze --fatal-infos .`"
+    name: mono_repo self validate
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility;commands:analyze"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: stable
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - name: mono_repo self validate
+        run: dart pub global activate mono_repo 6.6.2
+      - name: mono_repo self validate
+        run: dart pub global run mono_repo generate --validate
+  job_002:
+    name: "analyze; PKGS: bro_abstract_logger, bro_abstract_manager, bro_config_manager, bro_file_utility, bro_global_manager, bro_list_utility, bro_types_utility, bro_yaml_utility; `flutter analyze --fatal-infos .`, `dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 .`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility;commands:analyze-command"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -46,6 +69,10 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_abstract_logger_pub_upgrade.conclusion == 'success'"
         working-directory: bro_abstract_logger
+      - name: "bro_abstract_logger; dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_abstract_logger_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_abstract_logger
       - id: bro_abstract_manager_pub_upgrade
         name: bro_abstract_manager; flutter pub upgrade
         run: flutter pub upgrade
@@ -53,6 +80,10 @@ jobs:
         working-directory: bro_abstract_manager
       - name: "bro_abstract_manager; flutter analyze --fatal-infos ."
         run: flutter analyze --fatal-infos .
+        if: "always() && steps.bro_abstract_manager_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_abstract_manager
+      - name: "bro_abstract_manager; dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
         if: "always() && steps.bro_abstract_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_abstract_manager
       - id: bro_config_manager_pub_upgrade
@@ -64,6 +95,10 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_config_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_config_manager
+      - name: "bro_config_manager; dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_config_manager_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_config_manager
       - id: bro_file_utility_pub_upgrade
         name: bro_file_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -71,6 +106,10 @@ jobs:
         working-directory: bro_file_utility
       - name: "bro_file_utility; flutter analyze --fatal-infos ."
         run: flutter analyze --fatal-infos .
+        if: "always() && steps.bro_file_utility_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_file_utility
+      - name: "bro_file_utility; dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
         if: "always() && steps.bro_file_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_file_utility
       - id: bro_global_manager_pub_upgrade
@@ -82,6 +121,10 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_global_manager_pub_upgrade.conclusion == 'success'"
         working-directory: bro_global_manager
+      - name: "bro_global_manager; dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_global_manager_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_global_manager
       - id: bro_list_utility_pub_upgrade
         name: bro_list_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -89,6 +132,10 @@ jobs:
         working-directory: bro_list_utility
       - name: "bro_list_utility; flutter analyze --fatal-infos ."
         run: flutter analyze --fatal-infos .
+        if: "always() && steps.bro_list_utility_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_list_utility
+      - name: "bro_list_utility; dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
         if: "always() && steps.bro_list_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_list_utility
       - id: bro_types_utility_pub_upgrade
@@ -100,6 +147,10 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_types_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_types_utility
+      - name: "bro_types_utility; dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        if: "always() && steps.bro_types_utility_pub_upgrade.conclusion == 'success'"
+        working-directory: bro_types_utility
       - id: bro_yaml_utility_pub_upgrade
         name: bro_yaml_utility; flutter pub upgrade
         run: flutter pub upgrade
@@ -109,101 +160,10 @@ jobs:
         run: flutter analyze --fatal-infos .
         if: "always() && steps.bro_yaml_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_yaml_utility
-  job_002:
-    name: "score; PKGS: bro_abstract_logger, bro_abstract_manager, bro_config_manager, bro_file_utility, bro_global_manager, bro_list_utility, bro_types_utility, bro_yaml_utility; `dart pub global activate pana && pana --exit-threshold 20 --line-length 100 .`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility;commands:command"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:bro_abstract_logger-bro_abstract_manager-bro_config_manager-bro_file_utility-bro_global_manager-bro_list_utility-bro_types_utility-bro_yaml_utility
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
-        with:
-          channel: stable
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-      - id: bro_abstract_logger_pub_upgrade
-        name: bro_abstract_logger; flutter pub upgrade
-        run: flutter pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: bro_abstract_logger
-      - name: "bro_abstract_logger; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        if: "always() && steps.bro_abstract_logger_pub_upgrade.conclusion == 'success'"
-        working-directory: bro_abstract_logger
-      - id: bro_abstract_manager_pub_upgrade
-        name: bro_abstract_manager; flutter pub upgrade
-        run: flutter pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: bro_abstract_manager
-      - name: "bro_abstract_manager; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        if: "always() && steps.bro_abstract_manager_pub_upgrade.conclusion == 'success'"
-        working-directory: bro_abstract_manager
-      - id: bro_config_manager_pub_upgrade
-        name: bro_config_manager; flutter pub upgrade
-        run: flutter pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: bro_config_manager
-      - name: "bro_config_manager; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        if: "always() && steps.bro_config_manager_pub_upgrade.conclusion == 'success'"
-        working-directory: bro_config_manager
-      - id: bro_file_utility_pub_upgrade
-        name: bro_file_utility; flutter pub upgrade
-        run: flutter pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: bro_file_utility
-      - name: "bro_file_utility; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        if: "always() && steps.bro_file_utility_pub_upgrade.conclusion == 'success'"
-        working-directory: bro_file_utility
-      - id: bro_global_manager_pub_upgrade
-        name: bro_global_manager; flutter pub upgrade
-        run: flutter pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: bro_global_manager
-      - name: "bro_global_manager; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        if: "always() && steps.bro_global_manager_pub_upgrade.conclusion == 'success'"
-        working-directory: bro_global_manager
-      - id: bro_list_utility_pub_upgrade
-        name: bro_list_utility; flutter pub upgrade
-        run: flutter pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: bro_list_utility
-      - name: "bro_list_utility; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        if: "always() && steps.bro_list_utility_pub_upgrade.conclusion == 'success'"
-        working-directory: bro_list_utility
-      - id: bro_types_utility_pub_upgrade
-        name: bro_types_utility; flutter pub upgrade
-        run: flutter pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: bro_types_utility
-      - name: "bro_types_utility; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        if: "always() && steps.bro_types_utility_pub_upgrade.conclusion == 'success'"
-        working-directory: bro_types_utility
-      - id: bro_yaml_utility_pub_upgrade
-        name: bro_yaml_utility; flutter pub upgrade
-        run: flutter pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: bro_yaml_utility
-      - name: "bro_yaml_utility; dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
-        run: "dart pub global activate pana && pana --exit-threshold 20 --line-length 100 ."
+      - name: "bro_yaml_utility; dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
+        run: "dart pub global activate pana && pana --exit-code-threshold 20 --line-length 100 ."
         if: "always() && steps.bro_yaml_utility_pub_upgrade.conclusion == 'success'"
         working-directory: bro_yaml_utility
-    needs:
-      - job_001
   job_003:
     name: "unit_test; PKGS: bro_abstract_logger, bro_abstract_manager, bro_config_manager, bro_file_utility, bro_global_manager, bro_list_utility, bro_types_utility, bro_yaml_utility; `flutter test --flavor test .`"
     runs-on: ubuntu-latest
