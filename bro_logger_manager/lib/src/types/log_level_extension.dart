@@ -20,12 +20,16 @@ extension LogLevelExtension on Level {
 
   /// Convert a [Level] to a [LogsLevel].
   LogsLevel get logsLevel => switch (this) {
+        // We need to use the deprecated member to cover all the values in the switch.
+        // ignore: deprecated_member_use
         Level.trace || Level.all || Level.verbose || Level.wtf => LogsLevel.trace,
         Level.debug => LogsLevel.debug,
         Level.info => LogsLevel.info,
         Level.warning => LogsLevel.warn,
         Level.error => LogsLevel.error,
         Level.fatal => LogsLevel.fatal,
+        // We need to use the deprecated member to cover all the values in the switch.
+        // ignore: deprecated_member_use
         Level.off || Level.nothing => LogsLevel.none,
       };
 }
