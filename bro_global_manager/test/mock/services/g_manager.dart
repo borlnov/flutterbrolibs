@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-import 'package:bro_abstract_manager/bro_abstract_manager.dart';
 import 'package:bro_global_manager/bro_global_manager.dart';
 
 import '../mixins/mixin_life_cycle_status.dart';

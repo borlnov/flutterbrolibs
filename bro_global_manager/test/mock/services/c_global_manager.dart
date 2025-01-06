@@ -2,8 +2,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-import 'package:bro_abstract_manager/src/abs_manager_builder.dart';
-import 'package:bro_abstract_manager/src/abs_with_life_cycle.dart';
 import 'package:bro_global_manager/bro_global_manager.dart';
 
 import 'f_logger_manager.dart';

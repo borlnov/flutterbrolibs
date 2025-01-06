@@ -9,7 +9,8 @@ on:
   pull_request:
     branches: [ main ]
     types: [opened, synchronize, reopened, labeled, unlabeled]
-  # We disable the push for now, because it's not working with flutter (it asks for a connection)
+  # TODO(borlnov): We disable the push for now, because it's not working with flutter (it asks for
+  # a connection), see: https://github.com/dart-lang/ecosystem/issues/168
   # push:
   #   tags:
   #     - '[A-z]+-v[0-9]+.[0-9]+.[0-9]+*'
