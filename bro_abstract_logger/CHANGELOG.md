@@ -7,8 +7,12 @@ SPDX-License-Identifier: MIT
 <!-- We disable the rule for having the top level at first line, because we prefer a second level
      header for version -->
 <!-- markdownlint-disable MD041 -->
+## 1.1.0
+
+- Add log level parsing from string.
+- Add flutter error management to the abstract manager.
+
 ## 1.0.1
-<!-- markdownlint-enable MD041 -->
 
 - Fix the info and warning analyses issues.
 

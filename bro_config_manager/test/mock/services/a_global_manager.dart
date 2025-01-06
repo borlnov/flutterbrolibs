@@ -43,7 +43,7 @@ enum AssetsConfigType {
 /// The global manager to use for the tests.
 class AGlobalManager extends AbsGlobalManager {
   /// The singleton instance of the class.
-  static AGlobalManager get instance => AbsGlobalManager.absInstance! as AGlobalManager;
+  static AGlobalManager get instance => AbsGlobalManager.notNullAbsInstance as AGlobalManager;
 
   /// The type of the assets configuration to use.
   final AssetsConfigType _configType;

@@ -23,12 +23,27 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
   /// The external logger to use with the logger manager.
   late final MixinExternalLogger _externalLogger;
 
+  /// The default Flutter error handler.
+  FlutterExceptionHandler? _defaultFlutterErrorHandler;
+
+  /// The default platform error handler.
+  bool Function(Object exception, StackTrace stackTrace)? _defaultPlatformErrorHandler;
+
   /// The logger helper to use with the logger manager.
   final LoggerHelper loggerHelper;
+
+  /// If true, the manager will register a handler for the Flutter and platform non-managed errors.
+  ///
+  /// {@template bro_abstract_logger.AbstractLoggerManager.registerFlutterNonManagedErrorsAttention}
+  /// Beware, only one logger manager should register the errors. If multiple managers register the
+  /// errors, the last one will be the one that will manage the errors.
+  /// {@endtemplate}
+  final bool registerFlutterNonManagedErrors;
 
   /// Class constructor.
   AbstractLoggerManager({
     bool printLogsByDefault = true,
+    this.registerFlutterNonManagedErrors = false,
   }) : loggerHelper = DefaultLoggerHelper(
           printLogs: printLogsByDefault,
         );
@@ -37,6 +52,7 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
   @protected
   AbstractLoggerManager.fromLoggerHelper({
     required this.loggerHelper,
+    this.registerFlutterNonManagedErrors = false,
   });
 
   /// {@macro bro_abstract_manager.AbsWithLifeCycle.initLifeCycle}
@@ -45,11 +61,55 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
     await super.initLifeCycle();
     _externalLogger = await getExternalLogger();
     loggerHelper.updateLogger(_externalLogger);
+
+    if (registerFlutterNonManagedErrors) {
+      _defaultFlutterErrorHandler = FlutterError.onError;
+      _defaultPlatformErrorHandler = PlatformDispatcher.instance.onError;
+      FlutterError.onError = _manageFlutterError;
+      PlatformDispatcher.instance.onError = _managePlatformError;
+    }
+  }
+
+  /// This method is called when a Flutter error is thrown.
+  ///
+  /// It logs a fatal error with the exception and the stack trace.
+  void _manageFlutterError(FlutterErrorDetails details) => _externalLogger.logErrorWithException(
+        details.exception,
+        stackTrace: details.stack,
+        isFatal: true,
+      );
+
+  /// This method is called when a platform error is thrown.
+  ///
+  /// It logs a fatal error with the error and the stack trace.
+  bool _managePlatformError(Object error, StackTrace stackTrace) {
+    _externalLogger.logErrorWithException(
+      error,
+      stackTrace: stackTrace,
+      isFatal: true,
+    );
+
+    // We managed the error so we return true to prevent the error to be managed by the default
+    // error handler.
+    return true;
   }
 
   /// {@template bro_abstract_logger.AbstractLoggerManager.getExternalLogger}
   /// This method returns the external logger to use with the logger manager.
+  ///
+  /// Once the object is returned by this method, its life will be managed by this logger manager.
   /// {@endtemplate}
   @protected
   Future<MixinExternalLogger> getExternalLogger();
+
+  @override
+  Future<void> disposeLifeCycle() async {
+    if (registerFlutterNonManagedErrors) {
+      // We restore the default error handlers.
+      FlutterError.onError = _defaultFlutterErrorHandler;
+      PlatformDispatcher.instance.onError = _defaultPlatformErrorHandler;
+    }
+    await _externalLogger.dispose();
+    await super.disposeLifeCycle();
+  }
 }

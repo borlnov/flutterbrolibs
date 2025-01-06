@@ -64,7 +64,8 @@ abstract final class GlobalParseFileUtility {
     for (final extension in config_files_constants.configYamlExtensions) {
       final content = await AssetsUtility.loadAssetString(
         assetPath: '$configFolderPath/$fileName$extension',
-        logger: logger,
+        // We don't pass the logger helper because we don't want to display error in logger if the
+        // file doesn't exist
       );
 
       if (content == null) {

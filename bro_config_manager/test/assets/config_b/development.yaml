@@ -9,3 +9,11 @@ test:
 testAgain:
   subLevel:
     key: value3
+
+testConverter:
+  modelA:
+    name: Brenda
+    age: 12
+  modelAArray:
+    - name: Luc
+      age: 58

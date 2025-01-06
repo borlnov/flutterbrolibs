@@ -13,6 +13,8 @@ import 'package:flutter/widgets.dart';
 ///
 /// If you use [AbsMultiLoggerBuilder], don't create the linked logger managers by yourself, use
 /// the [AbsMultiLoggerBuilder] to create them.
+///
+/// {@macro bro_abstract_logger.AbstractMultiLoggerManager.errorRegistration}
 abstract class AbsMultiLoggerBuilder<L extends AbstractMultiLoggerManager>
     extends AbsManagerBuilder<L> {
   /// The list of loggers builders.
@@ -59,14 +61,21 @@ abstract class AbsMultiLoggerBuilder<L extends AbstractMultiLoggerManager>
 ///
 /// The class manages multiple logger managers. It uses the [MultiLoggerHelper] to log messages,
 /// the helper logs to all the linked logger managers.
+///
+/// {@template bro_abstract_logger.AbstractMultiLoggerManager.errorRegistration}
+/// You can only register the Flutter and platform non-managed errors once. If you want to do it,
+/// be sure to set the [registerFlutterNonManagedErrors] to false in all the logger managers.
+/// This class will register the errors and dispatch them to all the linked logger managers.
+/// {@endtemplate}
 abstract class AbstractMultiLoggerManager extends AbstractLoggerManager {
   /// The list of linked logger managers.
   final List<AbstractLoggerManager> _loggersManager;
 
   /// Class constructor.
   AbstractMultiLoggerManager(
-    List<AbstractLoggerManager> loggersManager,
-  )   : _loggersManager = loggersManager,
+    List<AbstractLoggerManager> loggersManager, {
+    super.registerFlutterNonManagedErrors = true,
+  })  : _loggersManager = loggersManager,
         super.fromLoggerHelper(
           loggerHelper: MultiLoggerHelper(
             loggers: loggersManager.map((manager) => manager.loggerHelper).toList(),

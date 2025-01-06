@@ -8,7 +8,6 @@ SPDX-License-Identifier: MIT
      header for version -->
 <!-- markdownlint-disable MD041 -->
 ## 1.0.1
-<!-- markdownlint-enable MD041 -->
 
 - Update pubspec.yaml file to be more compliant with dart pub.dev requirements.
 

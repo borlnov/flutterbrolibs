@@ -4,15 +4,17 @@
 
 import 'package:bro_config_manager/bro_config_manager.dart';
 
+import '../models/a_model.dart';
+
 /// Contains all the [ConfigVar] and [ConfigVarList] for the tests.
 mixin MixinForTestsConfig on AbstractConfigManager {
-  final testAnother = ConfigVar<int>(jsonPath: "test.another");
+  final testAnother = SimpleConfigVar<int>(jsonPath: "test.another");
 
-  final testAgain = ConfigVar<String>(jsonPath: "testAgain.subLevel.key");
+  final testAgain = SimpleConfigVar<String>(jsonPath: "testAgain.subLevel.key");
 
-  final testAgainBool = ConfigVar<bool>(jsonPath: "testAgain.key2");
+  final testAgainBool = SimpleConfigVar<bool>(jsonPath: "testAgain.key2");
 
-  final testComplex = ConfigVar<Map<String, dynamic>>(jsonPath: "testAgain.complex");
+  final testComplex = SimpleConfigVar<Map<String, dynamic>>(jsonPath: "testAgain.complex");
 
   final testStrArray = ConfigVarList<String>(jsonPath: "testAgain.strArray");
 
@@ -22,5 +24,20 @@ mixin MixinForTestsConfig on AbstractConfigManager {
 
   final testComplexArray = ConfigVarList<Map<String, dynamic>>(jsonPath: "testAgain.complexArray");
 
-  final testExtraDouble = ConfigVar<double>(jsonPath: "test.extraDouble");
+  final testExtraDouble = SimpleConfigVar<double>(jsonPath: "test.extraDouble");
+
+  final testDefaultValue = SimpleConfigVar<String>(
+    jsonPath: "test.defautValue",
+    defaultValue: "default",
+  );
+
+  final testObjectConverter = ConfigVar(
+    jsonPath: "testConverter.modelA",
+    converter: AModel.fromJson,
+  );
+
+  final testArrayConverter = ConfigVarList(
+    jsonPath: "testConverter.modelAArray",
+    elemConverter: AModel.fromJson,
+  );
 }

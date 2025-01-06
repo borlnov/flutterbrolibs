@@ -4,6 +4,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'mock/models/a_model.dart';
 import 'mock/services/a_global_manager.dart';
 
 /// This is the test for the config manager.
@@ -49,6 +50,29 @@ void main() {
             {"key3": "value3"},
           ],
           reason: "Test complex array value");
+      expect(config.testDefaultValue.load(), "default", reason: "Test default value");
+      expect(
+        config.testObjectConverter.tryToLoad(),
+        const AModel(
+          name: "Cindy",
+          age: 47,
+        ),
+        reason: "Test object converter",
+      );
+      expect(
+        config.testArrayConverter.tryToLoad(),
+        const [
+          AModel(
+            name: "Peter",
+            age: 68,
+          ),
+          AModel(
+            name: "John",
+            age: 32,
+          ),
+        ],
+        reason: "Test object array converter",
+      );
     });
   });
 
@@ -88,6 +112,25 @@ void main() {
           ],
           reason: "Test complex array value");
       expect(config.testExtraDouble.tryToLoad(), 14.0, reason: "Test extra double value");
+      expect(config.testDefaultValue.load(), "default", reason: "Test default value");
+      expect(
+        config.testObjectConverter.tryToLoad(),
+        const AModel(
+          name: "Brenda",
+          age: 12,
+        ),
+        reason: "Test object converter",
+      );
+      expect(
+        config.testArrayConverter.tryToLoad(),
+        const [
+          AModel(
+            name: "Luc",
+            age: 58,
+          ),
+        ],
+        reason: "Test object array converter",
+      );
     });
 
     test("Test env yaml files with staging env", () async {
@@ -125,6 +168,29 @@ void main() {
           ],
           reason: "Test complex array value");
       expect(config.testExtraDouble.tryToLoad(), 14.0, reason: "Test extra double value");
+      expect(config.testDefaultValue.load(), "default", reason: "Test default value");
+      expect(
+        config.testObjectConverter.tryToLoad(),
+        const AModel(
+          name: "Cindy",
+          age: 47,
+        ),
+        reason: "Test object converter",
+      );
+      expect(
+        config.testArrayConverter.tryToLoad(),
+        const [
+          AModel(
+            name: "Peter",
+            age: 68,
+          ),
+          AModel(
+            name: "John",
+            age: 32,
+          ),
+        ],
+        reason: "Test object array converter",
+      );
     });
 
     test("Test env yaml files with prod env", () async {
@@ -162,6 +228,22 @@ void main() {
           ],
           reason: "Test complex array value");
       expect(config.testExtraDouble.tryToLoad(), 14.0, reason: "Test extra double value");
+      expect(config.testDefaultValue.load(), "default", reason: "Test default value");
+      expect(config.testObjectConverter.tryToLoad(), isNull, reason: "Test object converter");
+      expect(
+        config.testArrayConverter.tryToLoad(),
+        const [
+          AModel(
+            name: "Peter",
+            age: 68,
+          ),
+          AModel(
+            name: "John",
+            age: 32,
+          ),
+        ],
+        reason: "Test object array converter",
+      );
     });
   });
 
@@ -199,6 +281,29 @@ void main() {
             {'key3': 'value3', 'key4': 'value4'},
           ],
           reason: "Test complex array value");
+      expect(config.testDefaultValue.load(), "default", reason: "Test default value");
+      expect(
+        config.testObjectConverter.tryToLoad(),
+        const AModel(
+          name: "Mario",
+          age: 96,
+        ),
+        reason: "Test object converter",
+      );
+      expect(
+        config.testArrayConverter.tryToLoad(),
+        const [
+          AModel(
+            name: "Mario",
+            age: 96,
+          ),
+          AModel(
+            name: "Luigi",
+            age: 95,
+          ),
+        ],
+        reason: "Test object array converter",
+      );
     });
 
     test("Test env yaml files with staging env", () async {
@@ -234,6 +339,29 @@ void main() {
             {'key3': 'value3', 'key4': 'value4'},
           ],
           reason: "Test complex array value");
+      expect(config.testDefaultValue.load(), "default", reason: "Test default value");
+      expect(
+        config.testObjectConverter.tryToLoad(),
+        const AModel(
+          name: "Mario",
+          age: 96,
+        ),
+        reason: "Test object converter",
+      );
+      expect(
+        config.testArrayConverter.tryToLoad(),
+        const [
+          AModel(
+            name: "Mario",
+            age: 96,
+          ),
+          AModel(
+            name: "Luigi",
+            age: 95,
+          ),
+        ],
+        reason: "Test object array converter",
+      );
     });
 
     test("Test env yaml files with prod env", () async {
@@ -269,114 +397,29 @@ void main() {
             {'key3': 'value3', 'key4': 'value4'},
           ],
           reason: "Test complex array value");
-    });
-    test("Test env yaml files with prod env", () async {
-      final config = await AGlobalManager.restartTestInstance(AssetsConfigType.bProd);
-
-      expect(config.testAnother.tryToLoad(), 4, reason: "Test integer value");
-      expect(config.testAgain.tryToLoad(), "value16", reason: "Test string value");
-      expect(config.testAgainBool.tryToLoad(), true, reason: "Test boolean value");
+      expect(config.testDefaultValue.load(), "default", reason: "Test default value");
       expect(
-        config.testComplex.tryToLoad(),
-        const <String, dynamic>{
-          "test": 1,
-          "test2": 2,
-        },
-        reason: "Test complex value",
+        config.testObjectConverter.tryToLoad(),
+        const AModel(
+          name: "Mario",
+          age: 96,
+        ),
+        reason: "Test object converter",
       );
-
       expect(
-        config.testStrArray.tryToLoad(),
-        [
-          "value1",
-          "value2",
-          "value3",
+        config.testArrayConverter.tryToLoad(),
+        const [
+          AModel(
+            name: "Mario",
+            age: 96,
+          ),
+          AModel(
+            name: "Luigi",
+            age: 95,
+          ),
         ],
-        reason: "Test string array value",
+        reason: "Test object array converter",
       );
-      expect(config.testBoolArray.tryToLoad(), [true], reason: "Test boolean array value");
-      expect(config.testIntArray.tryToLoad(), [2, 3, 5], reason: "Test int array value");
-      expect(
-          config.testComplexArray.tryToLoad(),
-          <Map<String, dynamic>>[
-            {"key": "value"},
-            {"key2": "value2"},
-            {"key3": "value3"},
-          ],
-          reason: "Test complex array value");
-      expect(config.testExtraDouble.tryToLoad(), 14.0, reason: "Test extra double value");
-    });
-  });
-
-  group("This is the test with C config", () {
-    test("Test env yaml files with env variables", () async {
-      final config = await AGlobalManager.restartTestInstance(AssetsConfigType.cDev);
-
-      expect(config.testAnother.tryToLoad(), 400, reason: "Test integer value");
-      expect(config.testAgain.tryToLoad(), "moon", reason: "Test string value");
-      expect(config.testAgainBool.tryToLoad(), false, reason: "Test boolean value");
-      expect(
-        config.testComplex.tryToLoad(),
-        const <String, dynamic>{
-          "key1": 'value1',
-          "key2": 'value2',
-        },
-        reason: "Test complex value",
-      );
-
-      expect(
-        config.testStrArray.tryToLoad(),
-        [
-          "value45",
-          "value67",
-        ],
-        reason: "Test string array value",
-      );
-      expect(config.testBoolArray.tryToLoad(), [true, false, true, false],
-          reason: "Test boolean array value");
-      expect(config.testIntArray.tryToLoad(), [1, 2, 8, 4], reason: "Test int array value");
-      expect(
-          config.testComplexArray.tryToLoad(),
-          <Map<String, dynamic>>[
-            {'key1': 'value1', 'key2': 'value2'},
-            {'key3': 'value3', 'key4': 'value4'},
-          ],
-          reason: "Test complex array value");
-    });
-
-    test("Test env yaml files with staging env", () async {
-      final config = await AGlobalManager.restartTestInstance(AssetsConfigType.cStaging);
-
-      expect(config.testAnother.tryToLoad(), 500, reason: "Test integer value");
-      expect(config.testAgain.tryToLoad(), "moon", reason: "Test string value");
-      expect(config.testAgainBool.tryToLoad(), false, reason: "Test boolean value");
-      expect(
-        config.testComplex.tryToLoad(),
-        const <String, dynamic>{
-          "key1": 'value1',
-          "key2": 'value2',
-        },
-        reason: "Test complex value",
-      );
-
-      expect(
-        config.testStrArray.tryToLoad(),
-        [
-          "value45",
-          "value67",
-        ],
-        reason: "Test string array value",
-      );
-      expect(config.testBoolArray.tryToLoad(), [true, false, true, false],
-          reason: "Test boolean array value");
-      expect(config.testIntArray.tryToLoad(), [1, 2, 8, 4], reason: "Test int array value");
-      expect(
-          config.testComplexArray.tryToLoad(),
-          <Map<String, dynamic>>[
-            {'key1': 'value1', 'key2': 'value2'},
-            {'key3': 'value3', 'key4': 'value4'},
-          ],
-          reason: "Test complex array value");
     });
 
     test("Test env yaml files with const env values", () async {
@@ -392,6 +435,9 @@ void main() {
           "TEST_AGAIN_INT_ARRAY": '[1, 2, 8, 4, 9 , 10]',
           "TEST_AGAIN_COMPLEX_ARRAY": '[{"key1": "value1", "key2": "value2"}, '
               '{"key3": "value3", "key4": "value4", "key5": "value5"}]',
+          "TEST_CONVERTER_MODEL_A": "{'name': 'Yoshi', 'age': 136}",
+          "TEST_CONVERTER_ARRAY_MODEL_A":
+              "[{'name': 'DonkeyKong', 'age': 21}, {'name': 'Luigi', 'age': 95}]",
         },
       );
 
@@ -425,6 +471,29 @@ void main() {
             {'key3': 'value3', 'key4': 'value4', 'key5': 'value5'},
           ],
           reason: "Test complex array value");
+      expect(config.testDefaultValue.load(), "default", reason: "Test default value");
+      expect(
+        config.testObjectConverter.tryToLoad(),
+        const AModel(
+          name: "Yoshi",
+          age: 136,
+        ),
+        reason: "Test object converter",
+      );
+      expect(
+        config.testArrayConverter.tryToLoad(),
+        const [
+          AModel(
+            name: "DonkeyKong",
+            age: 21,
+          ),
+          AModel(
+            name: "Luigi",
+            age: 95,
+          ),
+        ],
+        reason: "Test object array converter",
+      );
     });
   });
 }

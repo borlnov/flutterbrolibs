@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:bro_abstract_manager/bro_abstract_manager.dart';
+import 'package:bro_global_manager/src/models/global_manager_not_created_error.dart';
 import 'package:bro_global_manager/src/models/manager_registering_dead_loop_error.dart';
 import 'package:bro_global_manager/src/types/global_manager_status.dart';
 import 'package:flutter/widgets.dart';
@@ -15,10 +16,10 @@ typedef _RegistrationBuilders = Map<AbsManagerBuilder, Future<void> Function()>;
 
 /// Get the manager of type [Manager] from the global manager.
 Manager globalGetManager<Manager extends AbsWithLifeCycle>() =>
-    AbsGlobalManager.absInstance!.getManager<Manager>();
+    AbsGlobalManager.notNullAbsInstance.getManager<Manager>();
 
 /// Get the main logger helper from the global manager.
-LoggerHelper appLoggerHelper() => AbsGlobalManager.absInstance!.appLoggerHelper;
+LoggerHelper appLoggerHelper() => AbsGlobalManager.notNullAbsInstance.appLoggerHelper;
 
 /// This is an abstract class to build the global manager of the application.
 abstract class AbsGlobalManager extends AbsWithLifeCycle {
@@ -31,6 +32,20 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
   ///
   /// The instance must be created before using this getter.
   static AbsGlobalManager? get absInstance => _instance;
+
+  /// Get the singleton instance of the global manager. This returns a [AbsGlobalManager] type and
+  /// not the subclass.
+  /// This is only used with other bro packages.
+  ///
+  /// The instance must be created before using this getter. If the instance isn't created the
+  /// [GlobalManagerNotCreatedError] is thrown.
+  static AbsGlobalManager get notNullAbsInstance {
+    if (_instance == null) {
+      throw GlobalManagerNotCreatedError();
+    }
+
+    return _instance!;
+  }
 
   /// Get the singleton instance of the global manager casted to the subclass.
   @protected

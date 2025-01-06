@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: MIT
 
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
-import 'package:bro_list_utility/bro_list_utility.dart';
 
 /// This class is a companion to load config from a json file.
 ///
@@ -50,8 +49,7 @@ class ConfigCompanion {
     required this.loggerHelper,
   }) : _json = json;
 
-  /// Try to load a value of type [T] from the json file. If you want to load a list of values, use
-  /// [tryToLoadList] instead.
+  /// Try to load a value of type [T] from the json file.
   ///
   /// [jsonPath] is the list of keys to access the value in the json file.
   T? tryToLoad<T>(List<String> jsonPath) {
@@ -67,24 +65,6 @@ class ConfigCompanion {
     }
 
     return value;
-  }
-
-  /// Try to load a list of values of type [T] from the json file. If you want to load a simple
-  /// value, use [tryToLoad] instead.
-  ///
-  /// [jsonPath] is the list of keys to access the value in the json file.
-  List<T>? tryToLoadList<T>(List<String> jsonPath) {
-    final values = _getJsonValue(jsonPath);
-    if (values == null) {
-      return null;
-    }
-
-    if (values is! List<dynamic>) {
-      loggerHelper.warn("The json value: $values, isn't a list, we can't load config from it");
-      return null;
-    }
-
-    return ListUtility.tryToCastFromDynamic(values);
   }
 
   /// Get the value from the [_json] object with the given [jsonPath].
