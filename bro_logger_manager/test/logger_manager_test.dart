@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'mock/services/global_manager.dart';
 
+/// Test the logger manager
 void main() {
   test('Test logger manager print to console', () async {
     await GlobalManager.instance.initLifeCycle();
