@@ -102,6 +102,7 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
   @protected
   Future<MixinExternalLogger> getExternalLogger();
 
+  /// {@macro bro_abstract_manager.AbsWithLifeCycle.disposeLifeCycle}
   @override
   Future<void> disposeLifeCycle() async {
     if (registerFlutterNonManagedErrors) {
