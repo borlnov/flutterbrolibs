@@ -28,3 +28,14 @@ testAgain:
     - key: value
     - key2: value2
     - key3: value3
+
+# Comment
+testConverter:
+  modelA:
+    name: Cindy
+    age: 47
+  modelAArray:
+    - name: Peter
+      age: 68
+    - name: John
+      age: 32

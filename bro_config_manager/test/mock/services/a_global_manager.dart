@@ -2,8 +2,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-import 'package:bro_abstract_manager/src/abs_manager_builder.dart';
-import 'package:bro_abstract_manager/src/abs_with_life_cycle.dart';
 import 'package:bro_config_manager/bro_config_manager.dart';
 import 'package:bro_config_manager/src/services/config_companion.dart';
 import 'package:bro_global_manager/bro_global_manager.dart';
@@ -43,7 +41,7 @@ enum AssetsConfigType {
 /// The global manager to use for the tests.
 class AGlobalManager extends AbsGlobalManager {
   /// The singleton instance of the class.
-  static AGlobalManager get instance => AbsGlobalManager.absInstance! as AGlobalManager;
+  static AGlobalManager get instance => AbsGlobalManager.notNullAbsInstance as AGlobalManager;
 
   /// The type of the assets configuration to use.
   final AssetsConfigType _configType;

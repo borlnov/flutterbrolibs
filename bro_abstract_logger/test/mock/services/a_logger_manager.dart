@@ -19,11 +19,14 @@ class ALoggerBuilder extends AbsLoggerBuilder<ALoggerManager> {
 /// This is the manager used to test the logging system.
 class ALoggerManager extends AbstractLoggerManager {
   /// Create the [ALoggerManager].
-  ALoggerManager() : super();
+  ALoggerManager({
+    super.registerFlutterNonManagedErrors,
+  }) : super();
 
   /// Create the [ALoggerManager] from the [loggerHelper].
   ALoggerManager.fromLoggerHelper({
     required super.loggerHelper,
+    super.registerFlutterNonManagedErrors,
   }) : super.fromLoggerHelper();
 
   /// {@macro bro_abstract_logger.AbstractLoggerManager.getExternalLogger}

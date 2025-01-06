@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-import 'package:bro_abstract_manager/bro_abstract_manager.dart';
 import 'package:bro_config_manager/src/data/config_files_constants.dart' as config_files_constants;
 import 'package:bro_config_manager/src/models/errors/config_file_error.dart';
 import 'package:bro_config_manager/src/models/init_config_manager_model.dart';

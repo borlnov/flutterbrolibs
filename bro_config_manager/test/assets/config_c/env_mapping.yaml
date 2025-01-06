@@ -29,3 +29,11 @@ testAgain:
   complexArray:
     __name: TEST_AGAIN_COMPLEX_ARRAY
     __format: array
+
+testConverter:
+  modelA:
+    __name: TEST_CONVERTER_MODEL_A
+    __format: object
+  modelAArray:
+    __name: TEST_CONVERTER_ARRAY_MODEL_A
+    __format: array

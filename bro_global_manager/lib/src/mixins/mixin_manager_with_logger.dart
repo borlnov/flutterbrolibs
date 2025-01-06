@@ -19,7 +19,7 @@ mixin MixinManagerWithLogger on AbsWithLifeCycle {
   /// This is the parent logger to use to create the manager logger from it.
   ///
   /// By default, the parent logger is the main app logger.
-  LoggerHelper _parentLogger = AbsGlobalManager.absInstance!.appLoggerHelper;
+  LoggerHelper _parentLogger = AbsGlobalManager.notNullAbsInstance.appLoggerHelper;
 
   /// This method can be used in the manager initialization before calling [super.initLifeCycle] to
   /// set the parent logger to use to create the manager logger.

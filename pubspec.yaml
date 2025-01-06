@@ -16,6 +16,7 @@ workspace:
   - bro_file_utility
   - bro_global_manager
   - bro_list_utility
+  - bro_logger_manager
   - bro_types_utility
   - bro_yaml_utility
 

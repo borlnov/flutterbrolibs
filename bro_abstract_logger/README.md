@@ -17,6 +17,9 @@ SPDX-License-Identifier: MIT
 This package contains abstract classes for all the loggers. It doesn't contain any implementation of
 the loggers. It's just a way to have a common interface for all the loggers.
 
+This package is based on the [bro_abstract_manager](https://pub.dev/packages/bro_abstract_manager)
+package.
+
 ## Usage
 
 This package is not meant to be used directly. It's meant to be used by other packages that need to
@@ -28,4 +31,3 @@ implements the abstract classes.
 If you want to log to multiple loggers at the time, you can use the `AbstractMultiLogger` class.
 This class will log to all the loggers that you add to it and allows you to only have one main
 logger manager in your app.
-

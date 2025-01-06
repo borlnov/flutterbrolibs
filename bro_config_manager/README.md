@@ -29,6 +29,9 @@ all the other manager but also other classes to read app configs from specific f
 
 This package is inspired from the [node config package](https://www.npmjs.com/package/config).
 
+This package is based on the [bro_abstract_manager](https://pub.dev/packages/bro_abstract_manager)
+package.
+
 ## Usage
 
 ### Presentation

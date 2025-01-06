@@ -8,7 +8,6 @@ SPDX-License-Identifier: MIT
      header for version -->
 <!-- markdownlint-disable MD041 -->
 ## 1.0.1
-<!-- markdownlint-enable MD041 -->
 
 - We update the package to be a flutter package.
 

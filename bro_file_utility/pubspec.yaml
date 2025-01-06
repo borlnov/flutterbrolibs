@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 name: bro_file_utility
-version: "1.0.0"
+version: "1.1.0"
 
 description: This contains utility functions for manipulating files and assets.
 repository: https://github.com/borlnov/flutterbrolibs
@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  bro_abstract_logger: ^1.0.0
+  bro_abstract_logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:

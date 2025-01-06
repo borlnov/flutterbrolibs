@@ -14,10 +14,17 @@ import 'package:flutter/foundation.dart';
 /// The value is loaded only once and is stored in memory.
 /// {@endtemplate}
 ///
-/// If you want to get a list of values, use ConfigVarList instead
-class ConfigVar<T> {
+/// If you want to get a list of values, use ConfigVarList instead.
+///
+/// [Y] type represents the type of the JSON value in the configuration file. [T] type represents
+/// the type of the value to use in the code. If [Y] and [T] are the same, you can use the
+/// SimpleConfigVar class instead.
+class ConfigVar<T, Y> {
   /// The separator used to split the json path.
   static const String jsonPathSeparator = ".";
+
+  /// The default value to use if the value is not found in the configuration file.
+  final T? defaultValue;
 
   /// The list of json path to access the value.
   ///
@@ -26,6 +33,9 @@ class ConfigVar<T> {
   /// is a key in the config json file.
   /// {@endtemplate}
   final List<String> _jsonPathList;
+
+  /// This is a method to convert the value [Y] from the configuration file to the type [T].
+  final T? Function(Y value)? _converter;
 
   /// The list of json path to access the value.
   /// {@macro abs_config_manager.ConfigVar.jsonPath}
@@ -47,8 +57,11 @@ class ConfigVar<T> {
   /// {@endtemplate}
   ConfigVar({
     required String jsonPath,
+    this.defaultValue,
+    T? Function(Y value)? converter,
   })  : _jsonPathList = jsonPath.split(jsonPathSeparator),
-        _isLoaded = false;
+        _isLoaded = false,
+        _converter = converter;
 
   /// {@template bro_config_manager.ConfigVar.constructor.jsonPathList}
   /// Class constructor.
@@ -57,19 +70,28 @@ class ConfigVar<T> {
   /// {@endtemplate}
   ConfigVar.jsonPathList({
     required List<String> jsonPathList,
+    this.defaultValue,
+    T? Function(Y value)? converter,
   })  : _jsonPathList = jsonPathList,
-        _isLoaded = false;
+        _isLoaded = false,
+        _converter = converter;
 
   /// Load the value from the configuration file.
   ///
-  /// If the value is already loaded, the function returns the value.
+  /// {@macro bro_config_manager.ConfigVar.tryToLoad.parameters}
   ///
   /// If the value doesn't exist in the configuration file, the function will throw a
   /// [ConfigVarNotFoundError].
   ///
   /// If you want to override the behavior of this method, you can override [tryToLoadProcess].
-  T load() {
-    final value = tryToLoad();
+  T load({
+    bool useCache = true,
+    bool useDefaultValue = true,
+  }) {
+    final value = tryToLoad(
+      useCache: useCache,
+      useDefaultValue: useDefaultValue,
+    );
     if (value == null) {
       throw ConfigVarNotFoundError(_jsonPathList);
     }
@@ -79,14 +101,26 @@ class ConfigVar<T> {
 
   /// Try to load the value from the configuration file.
   ///
-  /// If the value is already loaded, the function returns the value.
+  /// {@template bro_config_manager.ConfigVar.tryToLoad.parameters}
+  /// - [useCache]: If true, the function will use the value stored in memory. If false, the
+  ///   function will try to load the value from the configuration file.
+  /// - [useDefaultValue]: If true, the function will use the [defaultValue] if the value is not
+  ///   found in the configuration file.
+  /// {@endtemplate}
   ///
-  /// If the value doesn't exist in the configuration file, the function returns null.
+  /// If the value doesn't exist in the configuration file and if the [defaultValue] is null, the
+  /// function returns null.
   ///
   /// If you want to override the behavior of this method, you can override [tryToLoadProcess].
-  T? tryToLoad() {
-    if (!_isLoaded) {
+  T? tryToLoad({
+    bool useCache = true,
+    bool useDefaultValue = false,
+  }) {
+    if (!useCache || !_isLoaded) {
       _loadedValue = tryToLoadProcess();
+      if (useDefaultValue && _loadedValue == null) {
+        _loadedValue = defaultValue;
+      }
       _isLoaded = true;
     }
 
@@ -99,5 +133,16 @@ class ConfigVar<T> {
   /// If the value doesn't exist in the configuration file, the function returns null.
   /// {@endtemplate}
   @protected
-  T? tryToLoadProcess() => ConfigCompanion.instance.tryToLoad(_jsonPathList);
+  T? tryToLoadProcess() {
+    if (_converter == null) {
+      return ConfigCompanion.instance.tryToLoad<T>(_jsonPathList);
+    }
+
+    final configValue = ConfigCompanion.instance.tryToLoad<Y>(_jsonPathList);
+    if (configValue == null) {
+      return null;
+    }
+
+    return _converter(configValue);
+  }
 }

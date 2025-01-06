@@ -25,7 +25,7 @@ abstract final class YamlUtility {
 
     final contents = yamlDoc.contents;
     if (contents is! YamlMap) {
-      logger?.error('Yaml parsing: the yaml document is not a map');
+      logger?.warn('Yaml parsing: the yaml document is not a map');
       return null;
     }
 
@@ -51,7 +51,7 @@ abstract final class YamlUtility {
 
     final contents = yamlDoc.contents;
     if (contents is! YamlList) {
-      logger?.error('Yaml parsing: the yaml document is not an array');
+      logger?.warn('Yaml parsing: the yaml document is not an array');
       return null;
     }
 
@@ -72,7 +72,7 @@ abstract final class YamlUtility {
     try {
       yamlDoc = loadYamlDocument(content);
     } catch (e) {
-      logger?.error("Yaml parsing: error while loading yaml document: $e");
+      logger?.warn("Yaml parsing: error while loading yaml document: $e");
     }
 
     return yamlDoc;
@@ -186,7 +186,7 @@ abstract final class YamlUtility {
       return value;
     }
 
-    logger?.error('Yaml parsing: unsupported yaml value type: ${value.runtimeType}');
+    logger?.warn('Yaml parsing: unsupported yaml value type: ${value.runtimeType}');
     return null;
   }
 }

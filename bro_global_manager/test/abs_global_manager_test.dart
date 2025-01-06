@@ -18,6 +18,8 @@ void main() {
   test("Create and init a default global manager", () async {
     final globalManager = AGlobalManager();
 
+    expect(() => AbsGlobalManager.notNullAbsInstance, throwsA(isA<GlobalManagerNotCreatedError>()),
+        reason: "Expect to not have the global manager created");
     expect(globalManager, isNotNull, reason: "Expect to create the global manager");
     expect(globalManager.currentStatus, GlobalManagerStatus.created,
         reason: "Expect to have the status created");

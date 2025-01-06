@@ -1,0 +1,45 @@
+# SPDX-FileCopyrightText: 2025 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
+name: bro_logger_manager
+version: 1.0.0
+
+description: This package contains implemntation of the `logger` with the manager.
+repository: https://github.com/borlnov/flutterbrolibs
+topics:
+  - logger
+  - manager
+  - brolibs
+  - shared
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=1.17.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  equatable: ^2.0.7
+
+  logger: ^2.5.0
+
+  bro_abstract_logger: ^1.1.0
+
+  bro_global_manager: ^1.1.0
+
+  bro_config_manager: ^1.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - path: test/assets/config/
+      flavors:
+        - test

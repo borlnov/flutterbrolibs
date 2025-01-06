@@ -9,3 +9,8 @@ test:
 testAgain:
   subLevel:
     key: value16
+
+testConverter:
+  modelA:
+    name: true
+    age: false
