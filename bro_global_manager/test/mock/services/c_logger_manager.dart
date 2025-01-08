@@ -11,7 +11,11 @@ import 'b_manager.dart';
 /// This is the builder to create the [CLoggerManager].
 class CLoggerBuilder extends AbsLoggerBuilder<CLoggerManager> {
   /// Create the [CLoggerBuilder].
-  const CLoggerBuilder() : super(CLoggerManager.new);
+  const CLoggerBuilder() : super();
+
+  /// {@macro bro_abstract_manager.AbsManagerBuilder.create}
+  @override
+  CLoggerManager create() => CLoggerManager();
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override

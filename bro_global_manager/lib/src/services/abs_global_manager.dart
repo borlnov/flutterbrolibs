@@ -74,6 +74,9 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
   /// Get the main logger helper of the application.
   LoggerHelper get appLoggerHelper => _loggerManager.loggerHelper;
 
+  /// The current platform of the application.
+  late final PlatformType currentPlatform;
+
   /// Class constructor.
   AbsGlobalManager()
       : _currentStatus = GlobalManagerStatus.created,
@@ -89,6 +92,8 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
       return;
     }
 
+    currentPlatform = PlatformType.guessCurrentPlatform();
+
     final builders = _RegistrationBuilders();
     registerManagers(<M extends AbsWithLifeCycle, B extends AbsManagerBuilder<M>>(B builder) =>
         _registerManagerWithBuilder<M, B>(
@@ -101,6 +106,7 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
     await _initManagers(builders);
 
     _currentStatus = GlobalManagerStatus.initialized;
+    appLoggerHelper.info("Global manager initialized.");
   }
 
   /// Initialize the lifecycle, after the first is built, of all the managers of the global manager.
@@ -152,12 +158,15 @@ abstract class AbsGlobalManager extends AbsWithLifeCycle {
   }) {
     M? manager;
     if (builder is AbsLoggerBuilder) {
-      manager = builder.managerFactory();
+      manager = builder.create();
       _loggerManager = manager as AbstractLoggerManager;
     }
 
     builders[builder] = () async {
-      final tmpManager = await builder.build(managerToInit: manager);
+      final tmpManager = await builder.build(
+        managerToInit: manager,
+        currentPlatform: currentPlatform,
+      );
       _managers[M] = tmpManager;
     };
   }

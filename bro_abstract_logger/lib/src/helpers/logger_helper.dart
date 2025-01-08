@@ -2,7 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
+import 'package:bro_abstract_logger/src/helpers/default_print_logger.dart';
 import 'package:bro_abstract_logger/src/helpers/sub_logger_helper.dart';
+import 'package:bro_abstract_logger/src/helpers/void_print_logger.dart';
 import 'package:bro_abstract_logger/src/mixins/mixin_external_logger.dart';
 import 'package:bro_abstract_logger/src/types/logs_level.dart';
 import 'package:flutter/foundation.dart';
@@ -47,6 +49,17 @@ class LoggerHelper {
           if (category != null) category,
         ],
         _logger = logger;
+
+  /// Create a default logger helper.
+  ///
+  /// If [printLogs] is true, the logger will use [DefaultPrintLogger.instance].
+  /// Otherwise, it will use [VoidPrintLogger.instance] (which print nothing).
+  factory LoggerHelper.initWithDefaultLogger({
+    bool printLogs = true,
+  }) =>
+      LoggerHelper(
+        logger: printLogs ? DefaultPrintLogger.instance : VoidPrintLogger.instance,
+      );
 
   /// This is the constructor for the sub-logger.
   ///

@@ -12,3 +12,4 @@ export 'src/services/abstract_logger_manager.dart';
 export 'src/services/abstract_multi_logger_manager.dart';
 export 'src/services/void_logger_manager.dart';
 export 'src/types/logs_level.dart';
+export 'src/utilities/log_format_utility.dart';

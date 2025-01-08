@@ -14,7 +14,7 @@ import 'package:flutter/foundation.dart';
 /// The abstract builder to create a [AbstractConfigManager].
 abstract class AbsConfigBuilder<C extends AbstractConfigManager> extends AbsManagerBuilder<C> {
   /// Class constructor.
-  const AbsConfigBuilder(super.managerFactory);
+  const AbsConfigBuilder();
 }
 
 /// The abstract class to manage the configuration of the application.
@@ -68,5 +68,6 @@ abstract class AbstractConfigManager extends AbsWithLifeCycle with MixinManagerW
   /// This method returns the model to initialize the ConfigManager.
   /// {@endtemplate}
   @protected
-  Future<InitConfigManagerModel> getInitConfigManagerModel();
+  Future<InitConfigManagerModel> getInitConfigManagerModel() async =>
+      const InitConfigManagerModel();
 }

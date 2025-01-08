@@ -9,7 +9,11 @@ import '../mixins/mixin_life_cycle_status.dart';
 /// Build a new [GManager].
 class GManagerBuilder extends AbsManagerBuilder<GManager> {
   /// Create a new [GManagerBuilder].
-  const GManagerBuilder() : super(GManager.new);
+  const GManagerBuilder() : super();
+
+  /// {@macro bro_abstract_manager.AbsManagerBuilder.create}
+  @override
+  GManager create() => GManager();
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override

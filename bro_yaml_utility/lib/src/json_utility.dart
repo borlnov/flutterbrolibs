@@ -49,9 +49,11 @@ abstract final class JsonUtility {
         continue;
       }
 
-      logger?.warn("Json merging: the key $key is already present in the base map, but not with "
-          "the same type. The base type: ${baseValue.runtimeType}, the override "
-          "type: ${overValue.runtimeType}");
+      if (baseValue.runtimeType != overValue.runtimeType) {
+        logger?.warn("Json merging: the key $key is already present in the base map, but not with "
+            "the same type. The base type: ${baseValue.runtimeType}, the override "
+            "type: ${overValue.runtimeType}");
+      }
       mergedJson[key] = overValue;
     }
 

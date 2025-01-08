@@ -29,11 +29,11 @@ dependencies:
 
   bro_abstract_logger: ^1.1.0
 
-  bro_abstract_manager: ^1.0.1
+  bro_abstract_manager: ^1.1.0
 
   bro_file_utility: ^1.0.0
 
-  bro_global_manager: ^1.0.0
+  bro_global_manager: ^1.1.0
 
   bro_yaml_utility: ^1.0.0
 

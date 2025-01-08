@@ -8,16 +8,29 @@ import '../mixins/mixin_for_tests_config.dart';
 
 /// A builder for the [AConfigManager] used for the tests.
 class AConfigBuilder extends AbsConfigBuilder<AConfigManager> {
+  /// This is the relative folder path to find the configuration files.
+  final String configFolderPath;
+
+  /// The environment type to use.
+  final ConfigEnvironmentType envType;
+
+  /// The constant environment values passed when building the app.
+  final Map<String, String> constEnvsValues;
+
   /// The constructor for the [AConfigBuilder].
   AConfigBuilder({
-    required String configFolderPath,
-    required ConfigEnvironmentType envType,
-    required Map<String, String> constEnvsValues,
-  }) : super(() => AConfigManager(
-              configFolderPath: configFolderPath,
-              envType: envType,
-              constEnvsValues: constEnvsValues,
-            ));
+    required this.configFolderPath,
+    required this.envType,
+    required this.constEnvsValues,
+  }) : super();
+
+  /// {@macro bro_abstract_manager.AbsManagerBuilder.create}
+  @override
+  AConfigManager create() => AConfigManager(
+        configFolderPath: configFolderPath,
+        envType: envType,
+        constEnvsValues: constEnvsValues,
+      );
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override

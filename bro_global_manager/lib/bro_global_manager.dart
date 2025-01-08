@@ -4,8 +4,7 @@
 
 library;
 
-export 'package:bro_abstract_manager/bro_abstract_manager.dart'
-    show AbsManagerBuilder, AbsWithLifeCycle;
+export 'package:bro_abstract_manager/bro_abstract_manager.dart';
 
 export 'src/mixins/mixin_manager_with_logger.dart';
 export 'src/models/global_manager_not_created_error.dart';

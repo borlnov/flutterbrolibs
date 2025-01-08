@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2025 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
+sdk:
+  - stable
+
+stages:
+  - analyze:
+      - group:
+          - analyze: --fatal-infos .
+          - command:
+              - dart pub global activate pana
+              # TODO(borlnov): Add `--exit-code-threshold 20` when the issue:
+              # https://github.com/dart-lang/pana/issues/1020, is fixed.
+              - pana --line-length 100 .

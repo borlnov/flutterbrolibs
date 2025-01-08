@@ -10,7 +10,11 @@ import 'e_manager.dart';
 /// Build a new [DManager].
 class DManagerBuilder extends AbsManagerBuilder<DManager> {
   /// Create a new [DManagerBuilder].
-  const DManagerBuilder() : super(DManager.new);
+  const DManagerBuilder() : super();
+
+  /// {@macro bro_abstract_manager.AbsManagerBuilder.create}
+  @override
+  DManager create() => DManager();
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override

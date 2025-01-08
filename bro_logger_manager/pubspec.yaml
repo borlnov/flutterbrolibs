@@ -5,7 +5,7 @@
 name: bro_logger_manager
 version: 1.0.0
 
-description: This package contains implemntation of the `logger` with the manager.
+description: This package contains implementation of the `logger` with the manager.
 repository: https://github.com/borlnov/flutterbrolibs
 topics:
   - logger
@@ -31,7 +31,7 @@ dependencies:
 
   bro_global_manager: ^1.1.0
 
-  bro_config_manager: ^1.0.1
+  bro_config_manager: ^1.1.0
 
 dev_dependencies:
   flutter_test:

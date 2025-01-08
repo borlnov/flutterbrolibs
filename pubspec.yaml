@@ -14,9 +14,12 @@ workspace:
   - bro_abstract_manager
   - bro_config_manager
   - bro_file_utility
+  - bro_firebase_core
+  - bro_firebase_crashlytics
   - bro_global_manager
   - bro_list_utility
   - bro_logger_manager
+  - bro_platform_utility
   - bro_types_utility
   - bro_yaml_utility
 

@@ -23,7 +23,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  bro_abstract_manager: ^1.0.1
+  bro_abstract_manager: ^1.1.0
 
 dev_dependencies:
   flutter_test:

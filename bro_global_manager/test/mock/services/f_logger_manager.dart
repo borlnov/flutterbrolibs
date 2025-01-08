@@ -11,7 +11,11 @@ import 'g_manager.dart';
 /// This is the builder to create the [FLoggerManager].
 class FLoggerBuilder extends AbsLoggerBuilder<FLoggerManager> {
   /// Create the [FLoggerBuilder].
-  const FLoggerBuilder() : super(FLoggerManager.new);
+  const FLoggerBuilder() : super();
+
+  /// {@macro bro_abstract_manager.AbsManagerBuilder.create}
+  @override
+  FLoggerManager create() => FLoggerManager();
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override

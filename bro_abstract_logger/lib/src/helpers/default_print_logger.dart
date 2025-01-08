@@ -2,8 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-import 'package:bro_abstract_logger/src/mixins/mixin_external_logger.dart';
-import 'package:bro_abstract_logger/src/types/logs_level.dart';
+import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:flutter/foundation.dart';
 
 /// A default logger that print logs to the console.
@@ -21,9 +20,6 @@ class DefaultPrintLogger with MixinExternalLogger {
     _instance ??= DefaultPrintLogger._();
     return _instance!;
   }
-
-  /// This is the default separator used to separate categories in the log message.
-  static const String _defaultCategorySeparator = "/";
 
   /// This is the default prefix used to add a category to the log message.
   ///
@@ -48,9 +44,10 @@ class DefaultPrintLogger with MixinExternalLogger {
       return;
     }
 
-    _debugPrint(_formatMessage(
+    _debugPrint(LogFormatUtility.formatLogMessages(
+      time: DateTime.now(),
       level: level,
-      categories: categories,
+      categories: [_defaultCategoryPrefix, ...categories],
       message: message,
     ));
   }
@@ -70,42 +67,24 @@ class DefaultPrintLogger with MixinExternalLogger {
       return;
     }
 
-    _debugPrint(_formatMessage(
+    _debugPrint(LogFormatUtility.formatLogMessages(
+      time: DateTime.now(),
       level: isFatal ? LogsLevel.fatal : LogsLevel.error,
-      categories: categories,
-      message: exception,
+      categories: [_defaultCategoryPrefix, ...categories],
+      exception: exception,
+      stackTrace: stackTrace,
     ));
-    if (stackTrace != null) {
-      _debugPrint(_formatMessage(
-        level: isFatal ? LogsLevel.fatal : LogsLevel.error,
-        categories: categories,
-        message: stackTrace,
-      ));
-    }
   }
 
   /// This method tests if a log is loggable thanks to the [minLevel].
   bool _testIfLoggable(LogsLevel level) => level.index >= minLevel.index;
 
-  /// This method formats a log message with the provided [level], [categories] and [message].
-  ///
-  /// It adds a timestamp to the log message.
-  String _formatMessage({
-    required LogsLevel level,
-    required List<String> categories,
-    // We use dynamic here to be able to log any type of exception
-    // ignore: avoid_annotating_with_dynamic
-    required dynamic message,
-  }) =>
-      "${DateTime.now().toUtc().toIso8601String()} - [${level.name.toLowerCase()}] [${[
-        _defaultCategoryPrefix,
-        ...categories,
-      ].join(_defaultCategorySeparator)}]: $message";
-
   /// This uses the `print` function to log messages, only in debug mode.
-  void _debugPrint(Object? message) {
+  void _debugPrint(List<String> messages) {
     if (kDebugMode) {
-      print(message);
+      for (final message in messages) {
+        print(message);
+      }
     }
   }
 
