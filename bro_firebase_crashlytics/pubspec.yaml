@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
 name: bro_firebase_crashlytics
 version: "1.0.0"
 
