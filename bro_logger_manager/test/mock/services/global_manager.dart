@@ -21,6 +21,6 @@ class GlobalManager extends AbsGlobalManager {
           registerManager) {
     registerManager<ConfigManager, ConfigManagerBuilder>(ConfigManagerBuilder());
     registerManager<LoggerManager, LoggerManagerBuilder<ConfigManager>>(
-        LoggerManagerBuilder<ConfigManager>());
+        const LoggerManagerBuilder<ConfigManager>());
   }
 }
