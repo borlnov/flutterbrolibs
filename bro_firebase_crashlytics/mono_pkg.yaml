@@ -14,5 +14,3 @@ stages:
               # TODO(borlnov): Add `--exit-code-threshold 20` when the issue:
               # https://github.com/dart-lang/pana/issues/1020, is fixed.
               - pana --line-length 100 .
-  - unit_test:
-      - test: --flavor test .

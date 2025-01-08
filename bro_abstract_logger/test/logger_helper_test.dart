@@ -11,21 +11,12 @@ import 'mock/models/test_log_model.dart';
 /// Test the logger helper behaviours.
 void main() {
   test('Test to print with default log helper', () {
-    bool success;
-
-    try {
-      expect(
-        () => DefaultPrintLogger.instance.info('Test log'),
-        prints(matches("[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}Z "
-            r'- \[info\] \[default\]: Test log\n')),
-        reason: "Expect to print the log",
-      );
-      success = true;
-    } catch (e) {
-      success = false;
-    }
-
-    expect(success, true, reason: "Expect to have no crash");
+    expect(
+      () => DefaultPrintLogger.instance.info('Test log'),
+      prints(matches("[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}Z "
+          r'- \[info\] \[default\]: Test log\n')),
+      reason: "Expect to print the log",
+    );
   });
 
   group("Test the logger helper parameters", () {

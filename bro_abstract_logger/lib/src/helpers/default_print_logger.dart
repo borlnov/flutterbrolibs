@@ -45,6 +45,7 @@ class DefaultPrintLogger with MixinExternalLogger {
     }
 
     _debugPrint(LogFormatUtility.formatLogMessages(
+      time: DateTime.now(),
       level: level,
       categories: [_defaultCategoryPrefix, ...categories],
       message: message,
@@ -67,6 +68,7 @@ class DefaultPrintLogger with MixinExternalLogger {
     }
 
     _debugPrint(LogFormatUtility.formatLogMessages(
+      time: DateTime.now(),
       level: isFatal ? LogsLevel.fatal : LogsLevel.error,
       categories: [_defaultCategoryPrefix, ...categories],
       exception: exception,
