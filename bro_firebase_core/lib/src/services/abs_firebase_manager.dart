@@ -53,7 +53,9 @@ abstract class AbsFirebaseManager extends AbsWithLifeCycle {
     await Future.wait(_services.map((service) => service.initAfterViewBuilt(context)));
   }
 
+  /// {@template abs_firebase_manager.AbsFirebaseManager.getFirebaseOptions}
   /// Get the [InitFirebaseConfig] config to init the manager and the linked services.
+  /// {@endtemplate}
   @protected
   Future<InitFirebaseConfig> getFirebaseOptions();
 

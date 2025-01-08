@@ -29,7 +29,9 @@ abstract class AbsMultiLoggerBuilder<L extends AbstractMultiLoggerManager>
   })  : _loggersBuilders = loggersBuilders,
         super();
 
+  /// {@template bro_abstract_logger.AbsMultiLoggerBuilder.createMultiLoggerManager}
   /// Create the multi logger manager with the [loggerManagers] already created.
+  /// {@endtemplate}
   @protected
   L createMultiLoggerManager(List<AbstractLoggerManager> loggerManagers);
 
