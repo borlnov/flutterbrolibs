@@ -7,7 +7,11 @@ import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 /// This class is used to build a [VoidLoggerManager].
 class VoidLoggerBuilder extends AbsLoggerBuilder<VoidLoggerManager> {
   /// Class constructor.
-  const VoidLoggerBuilder() : super(VoidLoggerManager.new);
+  const VoidLoggerBuilder() : super();
+
+  /// {@macro bro_abstract_manager.AbsManagerBuilder.create}
+  @override
+  VoidLoggerManager create() => VoidLoggerManager();
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override

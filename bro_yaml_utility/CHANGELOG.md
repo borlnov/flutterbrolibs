@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+SPDX-FileCopyrightText: 2024 - 2025 Benoit Rolandeau <borlnov.obsessio@gmail.com>
 
 SPDX-License-Identifier: MIT
 -->
@@ -10,6 +10,7 @@ SPDX-License-Identifier: MIT
 ## 1.1.0
 
 - Update logger dependencies
+- Fix problem with merging method and abusive warning message display
 
 ## 1.0.2
 

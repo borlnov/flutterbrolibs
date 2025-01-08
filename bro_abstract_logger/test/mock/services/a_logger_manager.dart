@@ -8,8 +8,8 @@ import '../helpers/test_print_logger.dart';
 
 /// This is the builder to create the [ALoggerManager].
 class ALoggerBuilder extends AbsLoggerBuilder<ALoggerManager> {
-  /// Create the [ALoggerBuilder].
-  ALoggerBuilder() : super(ALoggerManager.new);
+  @override
+  ALoggerManager create() => ALoggerManager();
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override

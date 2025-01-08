@@ -4,7 +4,6 @@
 
 import 'package:bro_abstract_logger/bro_abstract_logger.dart';
 import 'package:bro_abstract_logger/src/helpers/multi_logger_helper.dart';
-import 'package:bro_abstract_manager/bro_abstract_manager.dart';
 import 'package:flutter/widgets.dart';
 
 /// This is the abstract builder for a multi logger manager.
@@ -16,24 +15,30 @@ import 'package:flutter/widgets.dart';
 ///
 /// {@macro bro_abstract_logger.AbstractMultiLoggerManager.errorRegistration}
 abstract class AbsMultiLoggerBuilder<L extends AbstractMultiLoggerManager>
-    extends AbsManagerBuilder<L> {
+    extends AbsLoggerBuilder<L> {
   /// The list of loggers builders.
   final List<AbsLoggerBuilder> _loggersBuilders;
 
   /// Class constructor.
   ///
   /// {@template bro_abstract_logger.AbsMultiLoggerBuilder.constructor.params}
-  /// The [mainManagerFactory] is the factory to create the multi logger manager.
   /// The [loggersBuilders] is the list of builders to create the linked logger managers.
   /// {@endtemplate}
-  AbsMultiLoggerBuilder({
-    required L Function(List<AbstractLoggerManager> loggerManager) mainManagerFactory,
+  const AbsMultiLoggerBuilder({
     required List<AbsLoggerBuilder> loggersBuilders,
   })  : _loggersBuilders = loggersBuilders,
-        super(() => _multiFactory(
-              mainManagerFactory: mainManagerFactory,
-              loggersBuilders: loggersBuilders,
-            ));
+        super();
+
+  /// Create the multi logger manager with the [loggerManagers] already created.
+  @protected
+  L createMultiLoggerManager(List<AbstractLoggerManager> loggerManagers);
+
+  /// {@macro bro_abstract_manager.AbsManagerBuilder.create}
+  @override
+  L create() => _multiFactory(
+        mainManagerFactory: createMultiLoggerManager,
+        loggersBuilders: _loggersBuilders,
+      );
 
   /// Create the multi logger manager.
   ///
@@ -44,7 +49,7 @@ abstract class AbsMultiLoggerBuilder<L extends AbstractMultiLoggerManager>
   }) {
     final managers = <AbstractLoggerManager>[];
     for (final builder in loggersBuilders) {
-      managers.add(builder.managerFactory());
+      managers.add(builder.create());
     }
 
     return mainManagerFactory(managers);
@@ -88,6 +93,8 @@ abstract class AbstractMultiLoggerManager extends AbstractLoggerManager {
   // ignore: must_call_super
   Future<void> initLifeCycle() async {
     await Future.wait(_loggersManager.map((manager) => manager.initLifeCycle()));
+
+    registerFlutterNonManagedErrorsProcess();
   }
 
   /// {@macro bro_abstract_logger.AbstractLoggerManager.getExternalLogger}
@@ -108,6 +115,16 @@ abstract class AbstractMultiLoggerManager extends AbstractLoggerManager {
       return;
     }
     await super.initAfterViewBuilt(context);
+  }
+
+  /// Try to get a logger manager of type [T] from the list of linked managers.
+  T? tryToGetManager<T extends AbstractLoggerManager>() {
+    final managerIdx = _loggersManager.indexWhere((manager) => manager is T);
+    if (managerIdx < 0) {
+      loggerHelper.warn("The wanted manager $T is not in the list of linked managers.");
+      return null;
+    }
+    return _loggersManager[managerIdx] as T;
   }
 
   /// {@macro bro_abstract_manager.AbsWithLifeCycle.disposeLifeCycle}

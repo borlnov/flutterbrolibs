@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 name: bro_abstract_manager
-version: "1.0.1"
+version: "1.1.0"
 
 description: This package contains abstract classes to work with managers.
 repository: https://github.com/borlnov/flutterbrolibs
@@ -22,6 +22,8 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
+
+  bro_platform_utility: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -9,7 +9,11 @@ class BMultiBuilder extends AbsMultiLoggerBuilder<BMultiLoggerManager> {
   /// Create the [BMultiBuilder].
   BMultiBuilder({
     required super.loggersBuilders,
-  }) : super(mainManagerFactory: BMultiLoggerManager.new);
+  }) : super();
+
+  @override
+  BMultiLoggerManager createMultiLoggerManager(List<AbstractLoggerManager> loggerManager) =>
+      BMultiLoggerManager(loggerManager);
 }
 
 /// This is the multi logger manager used to test the logging system.

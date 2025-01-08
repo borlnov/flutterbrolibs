@@ -1,0 +1,33 @@
+name: bro_firebase_crashlytics
+version: "1.0.0"
+
+description: Wraps the Firebase Crashlytics package to use it with the managers and loggers systems.
+repository: https://github.com/borlnov/flutterbrolibs
+topics:
+  - firebase
+  - crashlytics
+  - logger
+  - brolibs
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=1.17.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  firebase_crashlytics: ^4.2.0
+
+  bro_abstract_logger: ^1.1.0
+
+  bro_config_manager: ^1.1.0
+
+  bro_global_manager: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0

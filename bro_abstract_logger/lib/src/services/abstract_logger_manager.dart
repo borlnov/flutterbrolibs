@@ -2,16 +2,18 @@
 //
 // SPDX-License-Identifier: MIT
 
-import 'package:bro_abstract_logger/src/helpers/default_logger_helper.dart';
 import 'package:bro_abstract_logger/src/helpers/logger_helper.dart';
 import 'package:bro_abstract_logger/src/mixins/mixin_external_logger.dart';
 import 'package:bro_abstract_manager/bro_abstract_manager.dart';
 import 'package:flutter/foundation.dart';
 
+/// This is the type of the Platform error handler.
+typedef PlatformErrorHandler = bool Function(Object exception, StackTrace stackTrace);
+
 /// This is an abstract builder for logger managers.
 abstract class AbsLoggerBuilder<L extends AbstractLoggerManager> extends AbsManagerBuilder<L> {
   /// Class constructor.
-  const AbsLoggerBuilder(super.managerFactory);
+  const AbsLoggerBuilder();
 }
 
 /// This is the abstract class for logger managers.
@@ -27,7 +29,7 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
   FlutterExceptionHandler? _defaultFlutterErrorHandler;
 
   /// The default platform error handler.
-  bool Function(Object exception, StackTrace stackTrace)? _defaultPlatformErrorHandler;
+  PlatformErrorHandler? _defaultPlatformErrorHandler;
 
   /// The logger helper to use with the logger manager.
   final LoggerHelper loggerHelper;
@@ -44,7 +46,7 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
   AbstractLoggerManager({
     bool printLogsByDefault = true,
     this.registerFlutterNonManagedErrors = false,
-  }) : loggerHelper = DefaultLoggerHelper(
+  }) : loggerHelper = LoggerHelper.initWithDefaultLogger(
           printLogs: printLogsByDefault,
         );
 
@@ -62,6 +64,13 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
     _externalLogger = await getExternalLogger();
     loggerHelper.updateLogger(_externalLogger);
 
+    registerFlutterNonManagedErrorsProcess();
+  }
+
+  /// This method registers the Flutter and platform non-managed errors if the
+  /// [registerFlutterNonManagedErrors] is true.
+  @protected
+  void registerFlutterNonManagedErrorsProcess() {
     if (registerFlutterNonManagedErrors) {
       _defaultFlutterErrorHandler = FlutterError.onError;
       _defaultPlatformErrorHandler = PlatformDispatcher.instance.onError;
@@ -73,7 +82,7 @@ abstract class AbstractLoggerManager extends AbsWithLifeCycle {
   /// This method is called when a Flutter error is thrown.
   ///
   /// It logs a fatal error with the exception and the stack trace.
-  void _manageFlutterError(FlutterErrorDetails details) => _externalLogger.logErrorWithException(
+  void _manageFlutterError(FlutterErrorDetails details) => loggerHelper.logErrorWithException(
         details.exception,
         stackTrace: details.stack,
         isFatal: true,

@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'mock/helpers/test_print_logger.dart';
 import 'mock/models/test_log_model.dart';
 import 'mock/services/a_logger_manager.dart';
+import 'mock/services/b_logger_manager.dart';
 import 'mock/services/b_multi_logger_manager.dart';
 
 /// Test the [AbstractMultiLoggerManager] behaviours.
@@ -15,12 +16,22 @@ void main() {
   test('Create MultiLoggerManager', () async {
     final builder = BMultiBuilder(loggersBuilders: [
       ALoggerBuilder(),
-      ALoggerBuilder(),
+      BLoggerBuilder(),
     ]);
 
     final manager = await builder.build();
 
     expect(manager, isNotNull);
+    expect(
+      manager.tryToGetManager<ALoggerManager>(),
+      isNotNull,
+      reason: 'Test if the logger manager A has been correctly created',
+    );
+    expect(
+      manager.tryToGetManager<BLoggerManager>(),
+      isNotNull,
+      reason: 'Test if the logger manager B has been correctly created',
+    );
   });
 
   test('Log before MultiLoggerManager init', () {
@@ -62,23 +73,15 @@ void main() {
   });
 
   test('Log after MultiLoggerManager init', () async {
-    final managerA = ALoggerManager.fromLoggerHelper(
-      loggerHelper: LoggerHelper(
-        logger: TestPrintLogger(),
-      ),
-    );
-    final managerB = ALoggerManager.fromLoggerHelper(
-      loggerHelper: LoggerHelper(
-        logger: TestPrintLogger(),
-      ),
-    );
-
-    final multiManager = BMultiLoggerManager([
-      managerA,
-      managerB,
+    final builder = BMultiBuilder(loggersBuilders: [
+      ALoggerBuilder(),
+      BLoggerBuilder(),
     ]);
 
-    await multiManager.initLifeCycle();
+    final multiManager = await builder.build();
+
+    final managerA = multiManager.tryToGetManager<ALoggerManager>()!;
+    final managerB = multiManager.tryToGetManager<BLoggerManager>()!;
 
     const log1 = TestLogModel(
       message: 'Test log 1',

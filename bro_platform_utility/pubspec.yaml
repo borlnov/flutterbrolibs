@@ -1,0 +1,26 @@
+name: bro_platform_utility
+version: "1.0.0"
+
+description: Contains specific platform utility functions and classes to use in your app.
+repository: https://github.com/borlnov/flutterbrolibs
+topics:
+  - platform
+  - brolibs
+  - shared
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=1.17.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  platform: ^3.1.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0

@@ -9,7 +9,11 @@ import 'package:bro_logger_manager/bro_logger_manager.dart';
 /// Create a builder for the [ConfigManager]
 class ConfigManagerBuilder extends AbsManagerBuilder<ConfigManager> {
   /// Create a builder for the [ConfigManager]
-  ConfigManagerBuilder() : super(ConfigManager.new);
+  ConfigManagerBuilder() : super();
+
+  /// {@macro bro_abstract_manager.AbsManagerBuilder.create}
+  @override
+  ConfigManager create() => ConfigManager();
 
   /// {@macro bro_abstract_manager.AbsManagerBuilder.getDependencies}
   @override

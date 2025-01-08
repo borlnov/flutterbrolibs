@@ -11,6 +11,7 @@ SPDX-License-Identifier: MIT
 
 - Add log level parsing from string.
 - Add flutter error management to the abstract manager.
+- Add log format utility class to offer a way to format the log message.
 
 ## 1.0.1
 
