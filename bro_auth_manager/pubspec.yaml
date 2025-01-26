@@ -1,21 +1,21 @@
-# SPDX-FileCopyrightText: 2024 Benoit Rolandeau <borlnov.obsessio@gmail.com>
+# SPDX-FileCopyrightText: 2025 Benoit Rolandeau <borlnov.obsessio@gmail.com>
 #
 # SPDX-License-Identifier: MIT
 
-name: bro_types_utility
-version: "1.0.1"
+name: bro_auth_manager
+version: 1.0.0
 
-description: This package contains utility classes for managing object types.
+description: The package contains abstract classes for authentication management.
 repository: https://github.com/borlnov/flutterbrolibs
 issue_tracker: https://github.com/borlnov/flutterbrolibs/issues
 topics:
-  - types
-  - utility
+  - manager
+  - authentication
   - brolibs
   - shared
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.6.1
   flutter: ">=1.17.0"
 
 resolution: workspace
@@ -27,5 +27,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^5.0.0

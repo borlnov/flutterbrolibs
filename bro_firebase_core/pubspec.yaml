@@ -7,6 +7,7 @@ version: "1.0.0"
 
 description: Wraps the Firebase Core package to use it with the managers system.
 repository: https://github.com/borlnov/flutterbrolibs
+issue_tracker: https://github.com/borlnov/flutterbrolibs/issues
 topics:
   - firebase
   - core

@@ -7,6 +7,7 @@ version: "1.1.0"
 
 description: This contains utility functions for manipulating files and assets.
 repository: https://github.com/borlnov/flutterbrolibs
+issue_tracker: https://github.com/borlnov/flutterbrolibs/issues
 topics:
   - file
   - assets

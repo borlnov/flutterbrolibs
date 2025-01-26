@@ -7,6 +7,7 @@ version: "1.0.0"
 
 description: Contains specific platform utility functions and classes to use in your app.
 repository: https://github.com/borlnov/flutterbrolibs
+issue_tracker: https://github.com/borlnov/flutterbrolibs/issues
 topics:
   - platform
   - brolibs
