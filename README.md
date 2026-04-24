@@ -7,9 +7,10 @@ SPDX-License-Identifier: MIT
 # Flutter Bro libraries <!-- omit from toc -->
 
 > [!WARNING]
-> The Flutter Bro libraries are discontinued. 
+> The Flutter Bro libraries are discontinued.
 >
-> However, I work on other Flutter libraries in my work, which are more complete and now OpenSource: https://github.com/All-Circuits-Technologies/ACT-Flutter-Packages
+> However, I work on other Flutter libraries in my work, which are more complete and
+> now OpenSource: https://github.com/All-Circuits-Technologies/ACT-Flutter-Packages.
 
 ## Badges
 
